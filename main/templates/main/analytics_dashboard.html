@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Analytics Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --background: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --radius: 6px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --spacing: 20px;
+            --light-black: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: url("{% static 'img/Pricing Report Page 1.png' %}") no-repeat center center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.5;
+            padding: var(--spacing);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+            position: relative;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            max-height: 80px;
+        }
+        
+        .header {
+            padding: 10px 5px 20px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--spacing);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+        
+        .card-body {
+            padding: 16px;
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-back {
+            background-color: var(--light-black);
+            color: white;
+        }
+        
+        .btn-back:hover {
+            background-color: #222222;
+        }
+        
+        .btn-export {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background-color: #1d4ed8;
+        }
+        
+        /* Power BI Container */
+        .powerbi-container {
+            width: 100%;
+            height: calc(100vh - 280px);
+            min-height: 400px;
+            max-height: 700px;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+        }
+        
+        .powerbi-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .action-bar {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .powerbi-container {
+                height: calc(100vh - 320px);
+                min-height: 350px;
+                max-height: 500px;
+            }
+            
+            .header {
+                padding: 8px 5px 15px;
+                margin-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header h2 {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .powerbi-container {
+                height: calc(100vh - 300px);
+                min-height: 380px;
+                max-height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'img/Logo.png' %}" alt="Magnum Opus Consultants Logo">
+        </div>
+        
+        <div class="header">
+            <h1>American Worldwide Agencies</h1>
+            <h2>Power BI Analytics Dashboard</h2>
+        </div>
+
+        <div class="action-bar">
+            <!-- Back Button -->
+            <a href="{% url 'shipment_list' %}" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Claims List
+            </a>
+            
+            <!-- Export Button -->
+            <a href="{% url 'export_shipments' %}?format=excel" class="btn btn-export">
+                <i class="fas fa-download"></i> Export Report
+            </a>
+        </div>
+
+        <!-- Power BI Dashboard Container -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-chart-bar"></i> Business Intelligence Dashboard
+                </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <div class="powerbi-container">
+                    <!-- Replace the src below with your actual Power BI embed URL -->
+                    <iframe 
+                        class="powerbi-iframe"
+                        title="Claims Analytics Dashboard" 
+                        src="https://app.powerbi.com/view?r=eyJrIjoiZjdlOWQzODktMGY0MS00NDU2LTgyZDYtOTE4YzhkNzRlMmFkIiwidCI6ImIxNTA0YjFkLWQwOTYtNDA5YS1hMGYwLTZjYzU0NmRkZTk5MyJ9"
+                        frameborder="0" 
+                        allowFullScreen="true">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

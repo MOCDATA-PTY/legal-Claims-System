@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claims Records Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --background: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --radius: 6px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --spacing: 5px;
+            --light-black: #333333;
+            --import-color: #446f1e;
+            --grey: #777777;
+            --analytics: #7c3aed;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: url("{% static 'img/Pricing Report Page 1.png' %}") no-repeat center center;
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.5;
+            padding: var(--spacing);
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            width: calc(100% - var(--spacing)*2);
+            margin: 0 auto;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo img {
+            max-height: 80px;
+        }
+        
+        .header {
+            padding: 10px 5px 20px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing);
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+        
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-body {
+            padding: 16px;
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+        }
+
+        .btn-danger{
+            background-color: red;
+            color: white;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+        
+       .btn-analytics {
+    background-color: #ef4444; /* Red color */
+    color: white;
+}
+
+        
+        
+.btn-analytics:hover {
+    background-color: #dc2626; /* Darker red on hover */
+}
+        
+        .btn-export {
+            background-color: var(--light-black);
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background-color: #222222;
+        }
+        
+        .btn-import {
+            background-color: #1d4ed8;
+            color: white;
+        }
+        
+        .btn-import:hover {
+            background-color: #fff;
+            color: black;
+        }
+        
+        .btn-new {
+            background-color: var(--grey);
+            color: white;
+        }
+        
+        .btn-new:hover {
+            background-color: #666666;
+        }
+        
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+        
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            transition: all 0.15s ease;
+            color: var(--text);
+            background-color: var(--card-bg);
+            width: 100%;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .messages {
+            margin-bottom: var(--spacing);
+            width: 100%;
+        }
+        
+        .message {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-bottom: var(--spacing);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .message.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border-left: 3px solid var(--danger);
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+            min-width: 1600px; /* Increased for additional column */
+        }
+        
+        th {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            text-align: left;
+            padding: 6px 8px;
+            font-weight: 600;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.7rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        td {
+            padding: 6px 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.7rem;
+            white-space: nowrap;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Updated column widths for both shipment numbers */
+        .col-shipment-no { min-width: 120px; }
+        .col-client-ref { 
+            min-width: 150px; 
+            max-width: 180px;
+        }
+        .col-brand { min-width: 80px; }
+        .col-claimant { min-width: 120px; max-width: 120px; }
+        .col-client-id { min-width: 70px; }
+        .col-client-name { min-width: 120px; max-width: 120px; }
+        .col-icon { min-width: 40px; text-align: center; }
+        .col-date { min-width: 90px; }
+        .col-amount { min-width: 80px; text-align: right; }
+        .col-branch { min-width: 60px; }
+        .col-status { min-width: 100px; }
+        .col-actions { min-width: 140px; }
+        
+        /* Special styling for the client reference */
+        .client-reference {
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+            color: var(--secondary);
+            background-color: rgba(16, 185, 129, 0.05);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+        }
+        
+        .client-reference.empty {
+            color: var(--text-light);
+            background-color: rgba(107, 114, 128, 0.05);
+            font-style: italic;
+        }
+        
+        /* Tooltip for truncated text */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Compact table controls */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        
+        .table-info {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .view-btn {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .empty-message {
+            text-align: center;
+            color: var(--text-light);
+            padding: 40px 20px;
+            background-color: #f8fafc;
+        }
+        
+        .action-cell {
+            white-space: nowrap;
+        }
+        
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.65rem;
+            margin: 1px;
+        }
+        
+        .btn-edit {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .fa-check-circle {
+            color: var(--secondary);
+        }
+        
+        .fa-times-circle {
+            color: var(--text-light);
+        }
+        
+        /* Status badges */
+        .status-badge {
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .status-open { background-color: #dbeafe; color: #1e40af; }
+        .status-pending { background-color: #fef3c7; color: #d97706; }
+        .status-closed { background-color: #d1fae5; color: #065f46; }
+        .status-rejected { background-color: #fee2e2; color: #dc2626; }
+        .status-under-review { background-color: #f3e8ff; color: #7c3aed; }
+        
+        .settlement-settled { background-color: #d1fae5; color: #065f46; }
+        .settlement-not-settled { background-color: #fee2e2; color: #dc2626; }
+        .settlement-partial { background-color: #fef3c7; color: #d97706; }
+        
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: var(--radius);
+            margin-top: 2px;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.875rem;
+            transition: background-color 0.15s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f5f9;
+        }
+        
+        @media (max-width: 768px) {
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-bar {
+                flex-direction: column;
+            }
+            
+            .action-bar .btn, .action-bar .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                width: 100%;
+            }
+            
+            /* Mobile adjustments for both columns */
+            .col-shipment-no {
+                min-width: 100px;
+                max-width: 120px;
+            }
+            
+            .col-client-ref {
+                min-width: 120px;
+                max-width: 140px;
+            }
+            
+            .client-reference {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'img/Logo.png' %}" alt="Magnum Opus Consultants Logo">
+        </div>
+        
+        <div class="header">
+            <h1>American Worldwide Agencies</h1>
+            <h2>Claims Records Management</h2>
+        </div>
+
+        <!-- Messages Section -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {% if message.tags == 'success' %}
+                <i class="fas fa-check-circle"></i>
+                {% elif message.tags == 'error' %}
+                <i class="fas fa-exclamation-circle"></i>
+                {% elif message.tags == 'warning' %}
+                <i class="fas fa-exclamation-triangle"></i>
+                {% else %}
+                <i class="fas fa-info-circle"></i>
+                {% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+     
+        <div class="action-bar">
+            <!-- Analytics Dashboard Button (NEW) -->
+            <a href="{% url 'analytics_dashboard' %}" class="btn btn-analytics">
+                <i class="fas fa-chart-line"></i> Analytics Dashboard
+            </a>
+            
+            <!-- Export Data Dropdown Button -->
+            <div class="dropdown">
+                <button class="btn btn-export" onclick="toggleDropdown()">
+                    <i class="fas fa-file-export"></i> Export Data
+                </button>
+                <div id="exportDropdown" class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="exportData('excel')">
+                        <i class="fas fa-file-excel" style="color: #217346; margin-right: 8px;"></i> Excel (.xlsx)
+                    </a>
+                    <a href="javascript:void(0)" onclick="exportData('csv')">
+                        <i class="fas fa-file-csv" style="color: #1d4ed8; margin-right: 8px;"></i> CSV (.csv)
+                    </a>
+                    <a href="javascript:void(0)" onclick="exportData('pdf')">
+                        <i class="fas fa-file-pdf" style="color: #e91e63; margin-right: 8px;"></i> PDF (.pdf)
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Import from Excel Button -->
+            <a href="{% url 'import_shipments' %}" class="btn btn-import">
+                <i class="fas fa-file-import"></i> Import from Excel
+            </a>
+            
+            <!-- Add New Claim Button -->
+            <a href="{% url 'add_shipment' %}" class="btn btn-new">
+                <i class="fas fa-plus"></i> Add New Claim
+            </a>
+            
+            <!-- Logout Button (Matching Other Buttons) -->
+            <form action="{% url 'logout' %}" method="post" class="logout-form" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+        
+        <!-- Filter Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-filter"></i> Filter Claims
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="get" action="">
+                    <div class="form-group">
+                        <div class="form-field">
+                            <label class="form-label">Claim No</label>
+                            <input type="text" class="form-control" name="claim_no" value="{{ request.GET.claim_no }}" placeholder="Enter claim number">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Client Reference</label>
+                            <input type="text" class="form-control" name="client_reference" value="{{ request.GET.client_reference }}" placeholder="e.g. Ethan-1-20250601">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Client</label>
+                            <select class="form-control" name="client">
+                                <option value="">All Clients</option>
+                                {% for client in clients %}
+                                <option value="{{ client.id }}" {% if request.GET.client == client.id|stringformat:"s" %}selected{% endif %}>{{ client.name }} ({{ client.client_id }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Branch</label>
+                            <select class="form-control" name="branch">
+                                <option value="">All Branches</option>
+                                {% for branch in branches %}
+                                <option value="{{ branch }}" {% if request.GET.branch == branch %}selected{% endif %}>{{ branch }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-field">
+                            <label class="form-label">Intend Date From</label>
+                            <input type="date" class="form-control" name="intend_date_from" value="{{ request.GET.intend_date_from }}">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Intend Date To</label>
+                            <input type="date" class="form-control" name="intend_date_to" value="{{ request.GET.intend_date_to }}">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Formal Date From</label>
+                            <input type="date" class="form-control" name="formal_date_from" value="{{ request.GET.formal_date_from }}">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Formal Date To</label>
+                            <input type="date" class="form-control" name="formal_date_to" value="{{ request.GET.formal_date_to }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-field">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Claims Table -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-file-invoice-dollar"></i> Claims List
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-controls">
+                    <div class="table-info">
+                        Showing {{ shipments|length }} shipment{{ shipments|length|pluralize }}
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="toggleCompactView(false)">Full View</button>
+                        <button class="view-btn" onclick="toggleCompactView(true)">Compact View</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="shipmentsTable">
+                        <thead>
+                            <tr>
+                                <th class="col-shipment-no">Shipment No</th>
+                                <th class="col-client-ref">Client Ref</th>
+                                <th class="col-brand">Brand</th>
+                                <th class="col-claimant">Claimant</th>
+                                <th class="col-client-id">Claim ID</th>
+                                <th class="col-client-name">Client Name</th>
+                                <th class="col-icon">Intent</th>
+                                <th class="col-date">Intent Date</th>
+                                <th class="col-icon">Formal</th>
+                                <th class="col-date">Formal Date</th>
+                                <th class="col-amount">Value</th>
+                                <th class="col-amount">ISCM Paid</th>
+                                <th class="col-amount">Carrier Paid</th>
+                                <th class="col-amount">Insurance</th>
+                                <th class="col-branch">Branch</th>
+                                <th class="col-amount">Savings</th>
+                                <th class="col-status">Settlement</th>
+                                <th class="col-amount">Exposure</th>
+                                <th class="col-status">Status</th>
+                                <th class="col-date">Closed</th>
+                                <th class="col-actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shipment in shipments %}
+                            <tr>
+                                <td class="col-shipment-no">{{ shipment.Claim_No }}</td>
+                                <td class="col-client-ref">
+                                    {% if shipment.client_reference %}
+                                        <span class="client-reference tooltip" data-tooltip="{{ shipment.client_reference }}">
+                                            {{ shipment.client_reference|truncatechars:18 }}
+                                        </span>
+                                    {% else %}
+                                        <span class="client-reference empty">Legacy</span>
+                                    {% endif %}
+                                </td>
+                                <td class="col-brand tooltip" data-tooltip="{{ shipment.Brand|default:'Not specified' }}">
+                                    {{ shipment.Brand|default:"-"|truncatechars:10 }}
+                                </td>
+                                <td class="col-claimant tooltip" data-tooltip="{{ shipment.Claimant|default:'Not specified' }}">
+                                    {{ shipment.Claimant|default:"-"|truncatechars:15 }}
+                                </td>
+                                <td class="col-client-id">{{ shipment.client.client_id }}</td>
+                                <td class="col-client-name tooltip" data-tooltip="{{ shipment.client.name }}">
+                                    {{ shipment.client.name|truncatechars:15 }}
+                                </td>
+                                <td class="col-icon">
+                                    {% if shipment.Intent_To_Claim == 'YES' %}
+                                    <i class="fas fa-check-circle" title="Yes"></i>
+                                    {% else %}
+                                    <i class="fas fa-times-circle" title="No"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="col-date">{{ shipment.Intend_Claim_Date|date:"m/d/y"|default:"-" }}</td>
+                                <td class="col-icon">
+                                    {% if shipment.Formal_Claim_Received == 'YES' %}
+                                    <i class="fas fa-check-circle" title="Yes"></i>
+                                    {% else %}
+                                    <i class="fas fa-times-circle" title="No"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="col-date">{{ shipment.Formal_Claim_Date_Received|date:"m/d/y"|default:"-" }}</td>
+                                <td class="col-amount">${{ shipment.Claimed_Amount|default:"0"|floatformat:0 }}</td>
+                                <td class="col-amount">${{ shipment.Amount_Paid_By_Awa|default:"0"|floatformat:0 }}</td>
+                                <td class="col-amount">${{ shipment.Amount_Paid_By_Carrier|default:"0"|floatformat:0 }}</td>
+                                <td class="col-amount">${{ shipment.Amount_Paid_By_Insurance|default:"0"|floatformat:0 }}</td>
+                                <td class="col-branch">{{ shipment.Branch }}</td>
+                                <td class="col-amount">${{ shipment.Total_Savings|default:"0"|floatformat:0 }}</td>
+                                <td class="col-status">
+                                    {% if shipment.Settlement_Status %}
+                                    <span class="status-badge settlement-{{ shipment.Settlement_Status|lower|slugify }}" title="{{ shipment.get_Settlement_Status_display }}">
+                                        {% if shipment.Settlement_Status == 'SETTLED' %}✓
+                                        {% elif shipment.Settlement_Status == 'NOT_SETTLED' %}✗
+                                        {% else %}~{% endif %}
+                                    </span>
+                                    {% else %}
+                                    -
+                                    {% endif %}
+                                </td>
+                                <td class="col-amount">${{ shipment.Financial_Exposure|default:"0"|floatformat:0 }}</td>
+                                <td class="col-status">
+                                    <span class="status-badge status-{{ shipment.Status|lower|slugify }}" title="{{ shipment.get_Status_display }}">
+                                        {% if shipment.Status == 'OPEN' %}●
+                                        {% elif shipment.Status == 'CLOSED' %}✓
+                                        {% elif shipment.Status == 'PENDING' %}⏳
+                                        {% elif shipment.Status == 'REJECTED' %}✗
+                                        {% else %}◐{% endif %}
+                                    </span>
+                                </td>
+                                <td class="col-date">{{ shipment.Closed_Date|date:"m/d/y"|default:"-" }}</td>
+                                <td class="col-actions">
+                                    <a class="btn btn-sm btn-edit" href="{% url 'edit_shipment' shipment.pk %}" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{% url 'delete_shipment' shipment.pk %}" method="post" style="display: inline;" 
+                                          onsubmit="return confirm('Delete {{ shipment.Claim_No }}?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="21" class="empty-message">No shipments found. Try adjusting your filters or add a new shipment.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Export Functionality -->
+    <script>
+        function toggleDropdown() {
+            document.getElementById("exportDropdown").style.display = 
+                document.getElementById("exportDropdown").style.display === "block" ? "none" : "block";
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.btn-export')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === "block") {
+                        openDropdown.style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function exportData(format) {
+            // Get current filters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Create export URL with format parameter and current filters
+            let exportUrl = "{% url 'export_shipments' %}?format=" + format;
+            
+            // Add existing filters to the URL
+            if (urlParams.has('claim_no')) exportUrl += "&claim_no=" + urlParams.get('claim_no');
+            if (urlParams.has('client_reference')) exportUrl += "&client_reference=" + urlParams.get('client_reference');
+            if (urlParams.has('client')) exportUrl += "&client=" + urlParams.get('client');
+            if (urlParams.has('branch')) exportUrl += "&branch=" + urlParams.get('branch');
+            if (urlParams.has('intend_date_from')) exportUrl += "&intend_date_from=" + urlParams.get('intend_date_from');
+            if (urlParams.has('intend_date_to')) exportUrl += "&intend_date_to=" + urlParams.get('intend_date_to');
+            if (urlParams.has('formal_date_from')) exportUrl += "&formal_date_from=" + urlParams.get('formal_date_from');
+            if (urlParams.has('formal_date_to')) exportUrl += "&formal_date_to=" + urlParams.get('formal_date_to');
+            
+            // Navigate to the export URL to download the file
+            window.location.href = exportUrl;
+        }
+
+        // Compact view toggle
+        function toggleCompactView(isCompact) {
+            const table = document.getElementById('shipmentsTable');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (isCompact) {
+                // Hide non-essential columns for compact view - including one of the shipment columns
+                const hiddenColumnIndexes = [1, 2, 3, 6, 15, 16, 17, 18]; // Client Ref, Brand, Claimant, Intent, Savings, Settlement, Exposure, Status
+                
+                // Hide header columns
+                const headerCells = table.querySelectorAll('thead th');
+                headerCells.forEach((cell, index) => {
+                    if (hiddenColumnIndexes.includes(index)) {
+                        cell.style.display = 'none';
+                    }
+                });
+                
+                // Hide body columns
+                const bodyRows = table.querySelectorAll('tbody tr');
+                bodyRows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, index) => {
+                        if (hiddenColumnIndexes.includes(index)) {
+                            cell.style.display = 'none';
+                        }
+                    });
+                });
+                
+                // Make table compact with no horizontal scroll
+                table.style.fontSize = '0.75rem';
+                table.style.minWidth = '100%';
+                table.style.width = '100%';
+                
+                // Adjust remaining column widths to fit
+                const visibleHeaders = table.querySelectorAll('th:not([style*="display: none"])');
+                visibleHeaders.forEach(header => {
+                    if (header.classList.contains('col-shipment-no')) {
+                        header.style.width = '15%';
+                    } else if (header.classList.contains('col-client-id')) {
+                        header.style.width = '8%';
+                    } else if (header.classList.contains('col-client-name')) {
+                        header.style.width = '15%';
+                    } else if (header.classList.contains('col-branch')) {
+                        header.style.width = '6%';
+                    } else if (header.classList.contains('col-icon')) {
+                        header.style.width = '5%';
+                    } else if (header.classList.contains('col-date')) {
+                        header.style.width = '10%';
+                    } else if (header.classList.contains('col-amount')) {
+                        header.style.width = '10%';
+                    } else if (header.classList.contains('col-actions')) {
+                        header.style.width = '12%';
+                    }
+                });
+                
+            } else {
+                // Show all columns
+                const allCells = table.querySelectorAll('td, th');
+                allCells.forEach(cell => {
+                    cell.style.display = '';
+                    cell.style.width = '';
+                });
+                
+                // Restore full view settings
+                table.style.fontSize = '0.7rem';
+                table.style.minWidth = '1600px'; // Updated for additional column
+                table.style.width = '';
+            }
+        }
+    </script>
+</body>
+</html>

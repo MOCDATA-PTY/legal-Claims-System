@@ -1,0 +1,661 @@
+{% load static %}
+
+{% block content %}
+    <style>
+        :root {
+            --primary: #0446f1;
+            --primary-dark: #0336c1;
+            --secondary: #6C8EBF;
+            --light: #F0F4F8;
+            --dark: #1A2533;
+            --gray: #64748B;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('{% static "img/Pricing Report Page 1.png" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 1rem;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: visible;
+            backdrop-filter: blur(10px);
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .form-header {
+            color: white;
+            padding: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        .form-header h2 {
+            margin: 0;
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            line-height: 1.2;
+        }
+
+        .form-content {
+            padding: 2rem;
+            /* Removed max-height and overflow-y */
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .form-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-content label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        .form-content input,
+        .form-content select,
+        .form-content textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1.5px solid #DDE3E9;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: white;
+            color: var(--dark);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-content input:focus,
+        .form-content select:focus,
+        .form-content textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(108, 142, 191, 0.2);
+        }
+
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+            color: #dc2626;
+            font-size: 0.875rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(4, 70, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569;
+            transform: translateY(-2px);
+        }
+
+        .client-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-dropdown {
+            position: absolute;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #DDE3E9;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .custom-dropdown.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            color: var(--dark);
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--light);
+        }
+        
+        .dropdown-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            color: var(--dark);
+        }
+
+        .popup-buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .popup-buttons button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .popup-buttons button:first-child {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .popup-buttons button:last-child {
+            background-color: #f3f4f6;
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+                background-attachment: scroll;
+            }
+            
+            .form-container {
+                max-width: 100%;
+                margin: 0 0 2rem 0;
+                border-radius: 8px;
+            }
+            
+            .form-header {
+                padding: 1rem;
+            }
+            
+            .form-header h2 {
+                font-size: clamp(1.1rem, 5vw, 1.5rem);
+            }
+            
+            .form-content {
+                padding: 1rem;
+                /* Removed max-height restriction */
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .form-field.full-width {
+                grid-column: span 1;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .form-content input,
+            .form-content select,
+            .form-content textarea {
+                padding: 0.85rem;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .custom-dropdown {
+                max-height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.25rem;
+            }
+            
+            .form-content {
+                padding: 0.75rem;
+                /* Removed max-height restriction */
+            }
+            
+            .form-grid {
+                gap: 0.75rem;
+            }
+            
+            .form-header {
+                padding: 0.75rem;
+            }
+            
+            .popup-content {
+                padding: 15px;
+            }
+            
+            .popup-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .popup-buttons button {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        /* Landscape mobile optimization */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 360px) {
+            .form-content {
+                padding: 0.5rem;
+            }
+            
+            .form-grid {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.65rem 0.75rem;
+                font-size: 14px;
+            }
+        }
+
+        /* Tablet optimization */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .form-container {
+                max-width: 95%;
+            }
+            
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1025px) {
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .form-content input,
+            .form-content select,
+            .form-content textarea {
+                border-width: 0.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Legal Claim Form</h2>
+        </div>
+        <div class="form-content">
+            <form method="POST">
+                <div class="form-grid">
+                    <!-- Shipment Number -->
+                    <div class="form-field">
+                        <label for="id_Claim_No">Shipment Number</label>
+                        <input type="text" name="Claim_No" id="id_Claim_No" class="form-control" required>
+                    </div>
+
+                    <!-- Branch -->
+                    <div class="form-field">
+                        <label for="id_Branch">Branch</label>
+                        <select name="Branch" id="id_Branch" class="form-control" required>
+                            <option value="">Select Branch...</option>
+                            <option value="Main">Main</option>
+                            <option value="North">North</option>
+                            <option value="South">South</option>
+                            <option value="East">East</option>
+                            <option value="West">West</option>
+                        </select>
+                    </div>
+
+                    <!-- Brand -->
+                    <div class="form-field">
+                        <label for="id_Brand">Brand</label>
+                        <input type="text" name="Brand" id="id_Brand" class="form-control" placeholder="Enter brand name">
+                    </div>
+
+                    <!-- Claimant -->
+                    <div class="form-field">
+                        <label for="id_client_name">Claimant</label>
+                        <div class="client-input-wrapper">
+                            <input type="text" 
+                                   name="client_name" 
+                                   id="id_client_name" 
+                                   class="form-control" 
+                                   placeholder="Select or enter claimant name" 
+                                   autocomplete="off">
+                            <div id="client-dropdown" class="custom-dropdown"></div>
+                        </div>
+                    </div>
+
+                    <!-- Intent To Claim -->
+                    <div class="form-field">
+                        <label for="id_Intent_To_Claim">Intent To Claim</label>
+                        <select name="Intent_To_Claim" id="id_Intent_To_Claim" class="form-control">
+                            <option value="">Select...</option>
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+                    </div>
+
+                    <!-- Intent Claim Date -->
+                    <div class="form-field">
+                        <label for="id_Intend_Claim_Date">Intent To Claim Date</label>
+                        <input type="date" name="Intend_Claim_Date" id="id_Intend_Claim_Date" class="form-control">
+                    </div>
+
+                    <!-- Formal Claim Received -->
+                    <div class="form-field">
+                        <label for="id_Formal_Claim_Received">Formal Claim Received</label>
+                        <select name="Formal_Claim_Received" id="id_Formal_Claim_Received" class="form-control">
+                            <option value="">Select...</option>
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+                    </div>
+
+                    <!-- Formal Claim Date -->
+                    <div class="form-field">
+                        <label for="id_Formal_Claim_Date_Received">Formal Claim Date</label>
+                        <input type="date" name="Formal_Claim_Date_Received" id="id_Formal_Claim_Date_Received" class="form-control">
+                    </div>
+
+                    <!-- Claimed Amount -->
+                    <div class="form-field">
+                        <label for="id_Claimed_Amount">Value (Claimed Amount)</label>
+                        <input type="number" name="Claimed_Amount" id="id_Claimed_Amount" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Amount Paid By ISCM/AWA -->
+                    <div class="form-field">
+                        <label for="id_Amount_Paid_By_Awa">Paid By ISCM</label>
+                        <input type="number" name="Amount_Paid_By_Awa" id="id_Amount_Paid_By_Awa" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Amount Paid By Carrier -->
+                    <div class="form-field">
+                        <label for="id_Amount_Paid_By_Carrier">Paid By Carrier</label>
+                        <input type="number" name="Amount_Paid_By_Carrier" id="id_Amount_Paid_By_Carrier" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Amount Paid By Insurance -->
+                    <div class="form-field">
+                        <label for="id_Amount_Paid_By_Insurance">Paid By Insurance</label>
+                        <input type="number" name="Amount_Paid_By_Insurance" id="id_Amount_Paid_By_Insurance" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Total Savings -->
+                    <div class="form-field">
+                        <label for="id_Total_Savings">Total Savings</label>
+                        <input type="number" name="Total_Savings" id="id_Total_Savings" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Settlement Status -->
+                    <div class="form-field">
+                        <label for="id_Settlement_Status">Settlement Status</label>
+                        <select name="Settlement_Status" id="id_Settlement_Status" class="form-control">
+                            <option value="">Select...</option>
+                            <option value="SETTLED">Settled</option>
+                            <option value="NOT_SETTLED">Not Settled</option>
+                            <option value="PARTIAL">Partially Settled</option>
+                        </select>
+                    </div>
+
+                    <!-- Financial Exposure -->
+                    <div class="form-field">
+                        <label for="id_Financial_Exposure">Financial Exposure</label>
+                        <input type="number" name="Financial_Exposure" id="id_Financial_Exposure" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+
+                    <!-- Status -->
+                    <div class="form-field">
+                        <label for="id_Status">Status</label>
+                        <select name="Status" id="id_Status" class="form-control">
+                            <option value="OPEN">Open</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="CLOSED">Closed</option>
+                            <option value="REJECTED">Rejected</option>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                        </select>
+                    </div>
+
+                    <!-- Closed Date -->
+                    <div class="form-field">
+                        <label for="id_Closed_Date">Closed Date</label>
+                        <input type="date" name="Closed_Date" id="id_Closed_Date" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Claim</button>
+                    <button type="button" class="btn btn-secondary">View All Claims</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const clientInput = document.getElementById('id_client_name');
+        const clientDropdown = document.getElementById('client-dropdown');
+        let clients = [
+            { id: 1, name: 'ABC Corporation' },
+            { id: 2, name: 'XYZ Industries' },
+            { id: 3, name: 'Global Logistics Ltd' },
+            { id: 4, name: 'Premium Shipping Co' }
+        ];
+        
+        function updateDropdown(filter = '') {
+            clientDropdown.innerHTML = '';
+            
+            let displayClients = clients;
+            if (filter) {
+                displayClients = clients.filter(client => 
+                    client.name.toLowerCase().includes(filter.toLowerCase())
+                );
+            }
+            
+            if (displayClients.length === 0) {
+                const item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.textContent = 'No matches found - new client will be created';
+                item.style.fontStyle = 'italic';
+                item.style.color = 'var(--gray)';
+                clientDropdown.appendChild(item);
+            } else {
+                displayClients.forEach(client => {
+                    const item = document.createElement('div');
+                    item.className = 'dropdown-item';
+                    item.textContent = client.name;
+                    item.dataset.id = client.id;
+                    item.addEventListener('click', function() {
+                        clientInput.value = client.name;
+                        clientDropdown.classList.remove('show');
+                    });
+                    clientDropdown.appendChild(item);
+                });
+            }
+        }
+        
+        clientInput.addEventListener('focus', function() {
+            clientDropdown.classList.add('show');
+            updateDropdown(clientInput.value);
+        });
+        
+        clientInput.addEventListener('input', function() {
+            const inputValue = this.value.trim();
+            updateDropdown(inputValue);
+            clientDropdown.classList.add('show');
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!clientInput.contains(event.target) && !clientDropdown.contains(event.target)) {
+                clientDropdown.classList.remove('show');
+            }
+        });
+        
+        clientInput.addEventListener('keydown', function(e) {
+            if (!clientDropdown.classList.contains('show')) return;
+            
+            const items = clientDropdown.querySelectorAll('.dropdown-item');
+            const activeItem = clientDropdown.querySelector('.dropdown-item.active');
+            let index = -1;
+            
+            if (activeItem) {
+                index = Array.from(items).indexOf(activeItem);
+            }
+            
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (index < items.length - 1) {
+                        if (activeItem) activeItem.classList.remove('active');
+                        items[index + 1].classList.add('active');
+                        items[index + 1].scrollIntoView({ block: 'nearest' });
+                    }
+                    break;
+                    
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (index > 0) {
+                        if (activeItem) activeItem.classList.remove('active');
+                        items[index - 1].classList.add('active');
+                        items[index - 1].scrollIntoView({ block: 'nearest' });
+                    }
+                    break;
+                    
+                case 'Enter':
+                    e.preventDefault();
+                    if (activeItem) {
+                        clientInput.value = activeItem.textContent;
+                        clientDropdown.classList.remove('show');
+                    }
+                    break;
+                    
+                case 'Escape':
+                    e.preventDefault();
+                    clientDropdown.classList.remove('show');
+                    break;
+            }
+        });
+    });
+    </script>
+{% endblock %}
