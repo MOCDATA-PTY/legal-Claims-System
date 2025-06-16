@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'legal_system_db',
         'USER': 'legal_system_user',
-        'PASSWORD': 'password123',  # Use the same password you set in the MySQL command
+        'PASSWORD': 'Password123',  # This is the password you just set
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
