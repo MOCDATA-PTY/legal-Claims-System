@@ -45,4 +45,5 @@ urlpatterns = [
     path('backups/download/<str:format_type>/<str:filename>/', views.download_backup, name='download_backup'),
     path('backups/manual-backup/', views.manual_backup_now, name='manual_backup_now'),
     path('backups/weekly-status/', views.weekly_backup_status, name='weekly_backup_status'),  # NEW URL
+    path('analytics/', views.analytics_dashboard, name='analytics_dashboard'),
 ]

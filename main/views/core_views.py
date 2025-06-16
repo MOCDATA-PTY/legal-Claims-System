@@ -425,7 +425,6 @@ def apply_filters(request, shipments):
     
     return shipments
 
-
 @login_required(login_url='login')
 def analytics_dashboard(request):
     """Data-focused analytics dashboard with comprehensive metrics."""
@@ -437,300 +436,220 @@ def analytics_dashboard(request):
     from decimal import Decimal
     import calendar
     
-    # Get all shipments for analysis
-    shipments = Shipment.objects.select_related('client').all()
-    
-    # === COMPREHENSIVE BASIC STATISTICS ===
-    total_claims = shipments.count()
-    total_value = shipments.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0
-    total_paid_iscm = shipments.aggregate(total=models.Sum('Amount_Paid_By_Awa'))['total'] or 0
-    total_paid_carrier = shipments.aggregate(total=models.Sum('Amount_Paid_By_Carrier'))['total'] or 0
-    total_paid_insurance = shipments.aggregate(total=models.Sum('Amount_Paid_By_Insurance'))['total'] or 0
-    total_savings = shipments.aggregate(total=models.Sum('Total_Savings'))['total'] or 0
-    total_exposure = shipments.aggregate(total=models.Sum('Financial_Exposure'))['total'] or 0
-    
-    # === CALCULATED METRICS ===
-    total_paid_all = total_paid_iscm + total_paid_carrier + total_paid_insurance
-    recovery_rate = (total_paid_all / total_value * 100) if total_value > 0 else 0
-    savings_rate = (total_savings / total_value * 100) if total_value > 0 else 0
-    exposure_rate = (total_exposure / total_value * 100) if total_value > 0 else 0
-    avg_claim_value = total_value / total_claims if total_claims > 0 else 0
-    avg_savings_per_claim = total_savings / total_claims if total_claims > 0 else 0
-    avg_exposure_per_claim = total_exposure / total_claims if total_claims > 0 else 0
-    
-    # === DETAILED TIME-BASED ANALYSIS ===
-    current_date = timezone.now().date()
-    
-    # Multiple time periods
-    periods = {
-        '7_days': current_date - timedelta(days=7),
-        '30_days': current_date - timedelta(days=30),
-        '60_days': current_date - timedelta(days=60),
-        '90_days': current_date - timedelta(days=90),
-        '180_days': current_date - timedelta(days=180),
-        '365_days': current_date - timedelta(days=365),
-    }
-    
-    time_analysis = {}
-    for period_name, start_date in periods.items():
-        period_claims = shipments.filter(Intend_Claim_Date__gte=start_date)
-        time_analysis[period_name] = {
-            'count': period_claims.count(),
-            'value': period_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0,
-            'savings': period_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0,
-            'avg_value': period_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0,
-            'settled_count': period_claims.filter(Settlement_Status='SETTLED').count(),
-            'open_count': period_claims.filter(Status='OPEN').count(),
+    try:
+        # Get all shipments for analysis
+        shipments = Shipment.objects.select_related('client').all()
+        
+        # === BASIC STATISTICS WITH SAFE AGGREGATION ===
+        total_claims = shipments.count()
+        
+        # Safe aggregation with null handling
+        total_value = float(shipments.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0)
+        total_paid_iscm = float(shipments.aggregate(total=models.Sum('Amount_Paid_By_Awa'))['total'] or 0)
+        total_paid_carrier = float(shipments.aggregate(total=models.Sum('Amount_Paid_By_Carrier'))['total'] or 0)
+        total_paid_insurance = float(shipments.aggregate(total=models.Sum('Amount_Paid_By_Insurance'))['total'] or 0)
+        total_savings = float(shipments.aggregate(total=models.Sum('Total_Savings'))['total'] or 0)
+        total_exposure = float(shipments.aggregate(total=models.Sum('Financial_Exposure'))['total'] or 0)
+        
+        # === CALCULATED METRICS WITH SAFE DIVISION ===
+        total_paid_all = total_paid_iscm + total_paid_carrier + total_paid_insurance
+        recovery_rate = (total_paid_all / total_value * 100) if total_value > 0 else 0
+        savings_rate = (total_savings / total_value * 100) if total_value > 0 else 0
+        exposure_rate = (total_exposure / total_value * 100) if total_value > 0 else 0
+        avg_claim_value = total_value / total_claims if total_claims > 0 else 0
+        avg_savings_per_claim = total_savings / total_claims if total_claims > 0 else 0
+        avg_exposure_per_claim = total_exposure / total_claims if total_claims > 0 else 0
+        
+        # === SIMPLIFIED TIME-BASED ANALYSIS ===
+        current_date = timezone.now().date()
+        
+        # Last 30 days analysis
+        last_30_days = current_date - timedelta(days=30)
+        recent_claims = shipments.filter(Intend_Claim_Date__gte=last_30_days)
+        
+        time_analysis = {
+            '30_days': {
+                'count': recent_claims.count(),
+                'value': float(recent_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'savings': float(recent_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0),
+                'avg_value': float(recent_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0),
+                'settled_count': recent_claims.filter(Settlement_Status='SETTLED').count(),
+                'open_count': recent_claims.filter(Status='OPEN').count(),
+            }
         }
-    
-    # === YEARLY COMPARISONS ===
-    current_year = current_date.year
-    yearly_data = {}
-    for year in range(current_year - 3, current_year + 1):
-        year_claims = shipments.filter(Intend_Claim_Date__year=year)
-        yearly_data[year] = {
-            'count': year_claims.count(),
-            'value': year_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0,
-            'savings': year_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0,
-            'avg_value': year_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0,
-            'settled_rate': (year_claims.filter(Settlement_Status='SETTLED').count() / year_claims.count() * 100) if year_claims.count() > 0 else 0,
+        
+        # === YEARLY ANALYSIS - SIMPLIFIED ===
+        current_year = current_date.year
+        current_year_claims = shipments.filter(Intend_Claim_Date__year=current_year)
+        last_year_claims = shipments.filter(Intend_Claim_Date__year=current_year-1)
+        
+        yearly_data = {
+            current_year: {
+                'count': current_year_claims.count(),
+                'value': float(current_year_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'savings': float(current_year_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0),
+                'settled_rate': (current_year_claims.filter(Settlement_Status='SETTLED').count() / current_year_claims.count() * 100) if current_year_claims.count() > 0 else 0,
+            },
+            current_year-1: {
+                'count': last_year_claims.count(),
+                'value': float(last_year_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'savings': float(last_year_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0),
+                'settled_rate': (last_year_claims.filter(Settlement_Status='SETTLED').count() / last_year_claims.count() * 100) if last_year_claims.count() > 0 else 0,
+            }
         }
-    
-    # === MONTHLY BREAKDOWN FOR CURRENT YEAR ===
-    monthly_breakdown = []
-    for month in range(1, 13):
-        month_claims = shipments.filter(
-            Intend_Claim_Date__year=current_year,
-            Intend_Claim_Date__month=month
-        )
-        monthly_breakdown.append({
-            'month': calendar.month_name[month],
-            'count': month_claims.count(),
-            'value': float(month_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
-            'savings': float(month_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0),
-            'settled_count': month_claims.filter(Settlement_Status='SETTLED').count(),
-            'avg_processing_days': _calculate_avg_processing_time(month_claims),
-        })
-    
-    # === COMPREHENSIVE STATUS ANALYSIS ===
-    status_detailed = shipments.values('Status').annotate(
-        count=models.Count('id'),
-        total_value=models.Sum('Claimed_Amount'),
-        avg_value=models.Avg('Claimed_Amount'),
-        min_value=models.Min('Claimed_Amount'),
-        max_value=models.Max('Claimed_Amount'),
-        total_savings=models.Sum('Total_Savings'),
-        total_exposure=models.Sum('Financial_Exposure'),
-        avg_processing_days=models.Avg(models.F('Formal_Claim_Date_Received') - models.F('Intend_Claim_Date')),
-    ).order_by('-total_value')
-    
-    # === SETTLEMENT ANALYSIS ===
-    settlement_detailed = shipments.values('Settlement_Status').annotate(
-        count=models.Count('id'),
-        total_value=models.Sum('Claimed_Amount'),
-        avg_value=models.Avg('Claimed_Amount'),
-        percentage=models.Count('id') * 100.0 / total_claims if total_claims > 0 else 0,
-        avg_exposure=models.Avg('Financial_Exposure'),
-        avg_savings=models.Avg('Total_Savings'),
-    ).order_by('-count')
-    
-    # === COMPREHENSIVE BRANCH ANALYSIS ===
-    branch_detailed = shipments.values('Branch').annotate(
-        count=models.Count('id'),
-        total_value=models.Sum('Claimed_Amount'),
-        avg_value=models.Avg('Claimed_Amount'),
-        min_value=models.Min('Claimed_Amount'),
-        max_value=models.Max('Claimed_Amount'),
-        total_savings=models.Sum('Total_Savings'),
-        total_exposure=models.Sum('Financial_Exposure'),
-        settled_count=models.Count('id', filter=models.Q(Settlement_Status='SETTLED')),
-        open_count=models.Count('id', filter=models.Q(Status='OPEN')),
-        pending_count=models.Count('id', filter=models.Q(Status='PENDING')),
-        closed_count=models.Count('id', filter=models.Q(Status='CLOSED')),
-        formal_count=models.Count('id', filter=models.Q(Formal_Claim_Received='YES')),
-        intent_count=models.Count('id', filter=models.Q(Intent_To_Claim='YES')),
-        settlement_rate=models.Count('id', filter=models.Q(Settlement_Status='SETTLED')) * 100.0 / models.Count('id'),
-        conversion_rate=models.Count('id', filter=models.Q(Formal_Claim_Received='YES')) * 100.0 / models.Count('id', filter=models.Q(Intent_To_Claim='YES')),
-        avg_processing_time=models.Avg(models.F('Formal_Claim_Date_Received') - models.F('Intend_Claim_Date')),
-    ).order_by('-total_value')
-    
-    # Add performance metrics to branches
-    for branch in branch_detailed:
-        branch['claims_per_month'] = branch['count'] / 12 if branch['count'] > 0 else 0
-        branch['value_per_month'] = (branch['total_value'] or 0) / 12
-        branch['efficiency_score'] = (branch['settlement_rate'] + branch['conversion_rate']) / 2 if branch['settlement_rate'] and branch['conversion_rate'] else 0
-    
-    # === COMPREHENSIVE CLIENT ANALYSIS ===
-    client_detailed = shipments.values('client__name', 'client__client_id').annotate(
-        count=models.Count('id'),
-        total_value=models.Sum('Claimed_Amount'),
-        avg_value=models.Avg('Claimed_Amount'),
-        min_value=models.Min('Claimed_Amount'),
-        max_value=models.Max('Claimed_Amount'),
-        total_savings=models.Sum('Total_Savings'),
-        total_exposure=models.Sum('Financial_Exposure'),
-        first_claim_date=models.Min('Intend_Claim_Date'),
-        last_claim_date=models.Max('Intend_Claim_Date'),
-        settled_count=models.Count('id', filter=models.Q(Settlement_Status='SETTLED')),
-        pending_count=models.Count('id', filter=models.Q(Settlement_Status='NOT_SETTLED')),
-        partial_count=models.Count('id', filter=models.Q(Settlement_Status='PARTIAL')),
-        open_count=models.Count('id', filter=models.Q(Status='OPEN')),
-        closed_count=models.Count('id', filter=models.Q(Status='CLOSED')),
-        settlement_rate=models.Count('id', filter=models.Q(Settlement_Status='SETTLED')) * 100.0 / models.Count('id'),
-        avg_days_to_settlement=models.Avg(models.F('Closed_Date') - models.F('Intend_Claim_Date')),
-    ).order_by('-total_value')
-    
-    # === RISK ANALYSIS ===
-    # Value-based risk tiers
-    value_tiers = {
-        'ultra_high': shipments.filter(Claimed_Amount__gte=100000),
-        'high': shipments.filter(Claimed_Amount__gte=50000, Claimed_Amount__lt=100000),
-        'medium': shipments.filter(Claimed_Amount__gte=10000, Claimed_Amount__lt=50000),
-        'low': shipments.filter(Claimed_Amount__lt=10000),
-    }
-    
-    risk_analysis = {}
-    for tier_name, tier_claims in value_tiers.items():
-        risk_analysis[tier_name] = {
-            'count': tier_claims.count(),
-            'total_value': tier_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0,
-            'avg_value': tier_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0,
-            'settled_rate': (tier_claims.filter(Settlement_Status='SETTLED').count() / tier_claims.count() * 100) if tier_claims.count() > 0 else 0,
-            'avg_exposure': tier_claims.aggregate(avg=models.Avg('Financial_Exposure'))['avg'] or 0,
-            'total_exposure': tier_claims.aggregate(total=models.Sum('Financial_Exposure'))['total'] or 0,
-        }
-    
-    # === AGING ANALYSIS ===
-    aging_detailed = {}
-    aging_buckets = [
-        ('0-15 days', 15),
-        ('16-30 days', 30),
-        ('31-60 days', 60),
-        ('61-90 days', 90),
-        ('91-180 days', 180),
-        ('180+ days', 99999),
-    ]
-    
-    for bucket_name, days in aging_buckets:
-        if days == 99999:
-            bucket_claims = shipments.filter(Intend_Claim_Date__lt=current_date - timedelta(days=180))
-        else:
-            start_days = aging_buckets[aging_buckets.index((bucket_name, days)) - 1][1] + 1 if aging_buckets.index((bucket_name, days)) > 0 else 0
-            bucket_claims = shipments.filter(
-                Intend_Claim_Date__gte=current_date - timedelta(days=days),
-                Intend_Claim_Date__lt=current_date - timedelta(days=start_days)
+        
+        # === MONTHLY BREAKDOWN - SIMPLIFIED ===
+        monthly_breakdown = []
+        for month in range(1, 13):
+            month_claims = shipments.filter(
+                Intend_Claim_Date__year=current_year,
+                Intend_Claim_Date__month=month
             )
+            monthly_breakdown.append({
+                'month': calendar.month_name[month],
+                'count': month_claims.count(),
+                'value': float(month_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'savings': float(month_claims.aggregate(total=models.Sum('Total_Savings'))['total'] or 0),
+                'settled_count': month_claims.filter(Settlement_Status='SETTLED').count(),
+            })
         
-        aging_detailed[bucket_name] = {
-            'count': bucket_claims.count(),
-            'total_value': bucket_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0,
-            'unsettled_count': bucket_claims.exclude(Settlement_Status='SETTLED').count(),
-            'unsettled_value': bucket_claims.exclude(Settlement_Status='SETTLED').aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0,
+        # === STATUS ANALYSIS - SIMPLIFIED ===
+        status_data = []
+        status_choices = ['OPEN', 'PENDING', 'CLOSED']
+        for status in status_choices:
+            status_claims = shipments.filter(Status=status)
+            status_data.append({
+                'status': status,
+                'count': status_claims.count(),
+                'total_value': float(status_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'avg_value': float(status_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0),
+                'percentage': (status_claims.count() / total_claims * 100) if total_claims > 0 else 0
+            })
+        
+        # === SETTLEMENT ANALYSIS ===
+        settlement_data = []
+        settlement_choices = ['SETTLED', 'NOT_SETTLED', 'PARTIAL']
+        for settlement in settlement_choices:
+            settlement_claims = shipments.filter(Settlement_Status=settlement)
+            settlement_data.append({
+                'settlement_status': settlement,
+                'count': settlement_claims.count(),
+                'total_value': float(settlement_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                'avg_value': float(settlement_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0),
+                'percentage': (settlement_claims.count() / total_claims * 100) if total_claims > 0 else 0
+            })
+        
+        # === BRANCH ANALYSIS - SIMPLIFIED ===
+        branches = shipments.values_list('Branch', flat=True).distinct()
+        branch_data = []
+        for branch in branches:
+            if branch:  # Skip None values
+                branch_claims = shipments.filter(Branch=branch)
+                branch_data.append({
+                    'branch': branch,
+                    'count': branch_claims.count(),
+                    'total_value': float(branch_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                    'avg_value': float(branch_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0),
+                    'settled_count': branch_claims.filter(Settlement_Status='SETTLED').count(),
+                    'settlement_rate': (branch_claims.filter(Settlement_Status='SETTLED').count() / branch_claims.count() * 100) if branch_claims.count() > 0 else 0
+                })
+        branch_data = sorted(branch_data, key=lambda x: x['total_value'], reverse=True)
+        
+        # === CLIENT ANALYSIS - SIMPLIFIED ===
+        client_data = []
+        # Only get clients that actually have shipments
+        clients_with_shipments = shipments.values_list('client_id', flat=True).distinct()
+        for client_id in clients_with_shipments:
+            if client_id:  # Skip None values
+                try:
+                    client = Client.objects.get(id=client_id)
+                    client_claims = shipments.filter(client_id=client_id)
+                    client_data.append({
+                        'client_name': client.name,
+                        'client_id': client.client_id,
+                        'count': client_claims.count(),
+                        'total_value': float(client_claims.aggregate(total=models.Sum('Claimed_Amount'))['total'] or 0),
+                        'avg_value': float(client_claims.aggregate(avg=models.Avg('Claimed_Amount'))['avg'] or 0),
+                        'settled_count': client_claims.filter(Settlement_Status='SETTLED').count(),
+                        'settlement_rate': (client_claims.filter(Settlement_Status='SETTLED').count() / client_claims.count() * 100) if client_claims.count() > 0 else 0
+                    })
+                except Client.DoesNotExist:
+                    continue
+        client_data = sorted(client_data, key=lambda x: x['total_value'], reverse=True)[:20]  # Top 20 clients
+        
+        # === PAYMENT ANALYSIS ===
+        payment_analysis = {
+            'iscm_awa': {
+                'total': total_paid_iscm,
+                'count': shipments.filter(Amount_Paid_By_Awa__gt=0).count(),
+                'percentage': (total_paid_iscm / total_paid_all * 100) if total_paid_all > 0 else 0,
+            },
+            'carrier': {
+                'total': total_paid_carrier,
+                'count': shipments.filter(Amount_Paid_By_Carrier__gt=0).count(),
+                'percentage': (total_paid_carrier / total_paid_all * 100) if total_paid_all > 0 else 0,
+            },
+            'insurance': {
+                'total': total_paid_insurance,
+                'count': shipments.filter(Amount_Paid_By_Insurance__gt=0).count(),
+                'percentage': (total_paid_insurance / total_paid_all * 100) if total_paid_all > 0 else 0,
+            }
         }
-    
-    # === PAYMENT SOURCE ANALYSIS ===
-    payment_analysis = {
-        'iscm_awa': {
-            'total': float(total_paid_iscm),
-            'count': shipments.filter(Amount_Paid_By_Awa__gt=0).count(),
-            'avg': shipments.filter(Amount_Paid_By_Awa__gt=0).aggregate(avg=models.Avg('Amount_Paid_By_Awa'))['avg'] or 0,
-            'percentage': (total_paid_iscm / total_paid_all * 100) if total_paid_all > 0 else 0,
-        },
-        'carrier': {
-            'total': float(total_paid_carrier),
-            'count': shipments.filter(Amount_Paid_By_Carrier__gt=0).count(),
-            'avg': shipments.filter(Amount_Paid_By_Carrier__gt=0).aggregate(avg=models.Avg('Amount_Paid_By_Carrier'))['avg'] or 0,
-            'percentage': (total_paid_carrier / total_paid_all * 100) if total_paid_all > 0 else 0,
-        },
-        'insurance': {
-            'total': float(total_paid_insurance),
-            'count': shipments.filter(Amount_Paid_By_Insurance__gt=0).count(),
-            'avg': shipments.filter(Amount_Paid_By_Insurance__gt=0).aggregate(avg=models.Avg('Amount_Paid_By_Insurance'))['avg'] or 0,
-            'percentage': (total_paid_insurance / total_paid_all * 100) if total_paid_all > 0 else 0,
+        
+        # === EFFICIENCY METRICS ===
+        intent_claims = shipments.filter(Intent_To_Claim='YES').count()
+        formal_claims = shipments.filter(Formal_Claim_Received='YES').count()
+        settled_claims = shipments.filter(Settlement_Status='SETTLED').count()
+        
+        efficiency_metrics = {
+            'intent_to_formal_rate': (formal_claims / intent_claims * 100) if intent_claims > 0 else 0,
+            'overall_success_rate': (settled_claims / total_claims * 100) if total_claims > 0 else 0,
+            'claims_requiring_formal': formal_claims,
+            'total_intent_claims': intent_claims,
+            'total_settled_claims': settled_claims,
         }
-    }
-    
-    # === EFFICIENCY METRICS ===
-    intent_claims = shipments.filter(Intent_To_Claim='YES')
-    formal_claims = shipments.filter(Formal_Claim_Received='YES')
-    
-    efficiency_metrics = {
-        'intent_to_formal_rate': (formal_claims.count() / intent_claims.count() * 100) if intent_claims.count() > 0 else 0,
-        'formal_to_settlement_rate': (formal_claims.filter(Settlement_Status='SETTLED').count() / formal_claims.count() * 100) if formal_claims.count() > 0 else 0,
-        'overall_success_rate': (shipments.filter(Settlement_Status='SETTLED').count() / total_claims * 100) if total_claims > 0 else 0,
-        'avg_claim_cycle_days': _calculate_avg_processing_time(shipments),
-        'claims_requiring_formal': formal_claims.count(),
-        'claims_settled_without_formal': shipments.filter(Settlement_Status='SETTLED', Formal_Claim_Received='NO').count(),
-    }
-    
-    # === PREDICTIVE INSIGHTS ===
-    # Claims likely to be settled based on patterns
-    likely_to_settle = shipments.filter(
-        Formal_Claim_Received='YES',
-        Settlement_Status__isnull=True
-    ).count()
-    
-    # High-risk claims (old + high value + not settled)
-    high_risk_claims = shipments.filter(
-        Intend_Claim_Date__lt=current_date - timedelta(days=90),
-        Claimed_Amount__gte=avg_claim_value,
-        Settlement_Status__in=['NOT_SETTLED', None]
-    ).order_by('-Claimed_Amount')[:20]
-    
-    # Top opportunities (high value + early stage)
-    opportunities = shipments.filter(
-        Claimed_Amount__gte=avg_claim_value * 2,
-        Status='OPEN'
-    ).order_by('-Claimed_Amount')[:15]
-    
-    context = {
-        # Basic metrics
-        'total_claims': total_claims,
-        'total_value': total_value,
-        'total_paid_iscm': total_paid_iscm,
-        'total_paid_carrier': total_paid_carrier,
-        'total_paid_insurance': total_paid_insurance,
-        'total_paid_all': total_paid_all,
-        'total_savings': total_savings,
-        'total_exposure': total_exposure,
-        'avg_claim_value': avg_claim_value,
-        'avg_savings_per_claim': avg_savings_per_claim,
-        'avg_exposure_per_claim': avg_exposure_per_claim,
         
-        # Rates and percentages
-        'savings_rate': round(savings_rate, 2),
-        'recovery_rate': round(recovery_rate, 2),
-        'exposure_rate': round(exposure_rate, 2),
+        context = {
+            # Basic metrics
+            'total_claims': total_claims,
+            'total_value': total_value,
+            'total_paid_iscm': total_paid_iscm,
+            'total_paid_carrier': total_paid_carrier,
+            'total_paid_insurance': total_paid_insurance,
+            'total_paid_all': total_paid_all,
+            'total_savings': total_savings,
+            'total_exposure': total_exposure,
+            'avg_claim_value': avg_claim_value,
+            'avg_savings_per_claim': avg_savings_per_claim,
+            'avg_exposure_per_claim': avg_exposure_per_claim,
+            
+            # Rates and percentages
+            'savings_rate': round(savings_rate, 2),
+            'recovery_rate': round(recovery_rate, 2),
+            'exposure_rate': round(exposure_rate, 2),
+            
+            # Analysis data
+            'time_analysis': time_analysis,
+            'yearly_data': yearly_data,
+            'monthly_breakdown': monthly_breakdown,
+            'status_data': status_data,
+            'settlement_data': settlement_data,
+            'branch_data': branch_data,
+            'client_data': client_data,
+            'payment_analysis': payment_analysis,
+            'efficiency_metrics': efficiency_metrics,
+        }
         
-        # Time-based analysis
-        'time_analysis': time_analysis,
-        'yearly_data': yearly_data,
-        'monthly_breakdown': monthly_breakdown,
-        
-        # Detailed breakdowns
-        'status_detailed': status_detailed,
-        'settlement_detailed': settlement_detailed,
-        'branch_detailed': branch_detailed,
-        'client_detailed': client_detailed[:25],  # Top 25 clients
-        
-        # Risk and aging
-        'risk_analysis': risk_analysis,
-        'aging_detailed': aging_detailed,
-        
-        # Payment analysis
-        'payment_analysis': payment_analysis,
-        
-        # Efficiency metrics
-        'efficiency_metrics': efficiency_metrics,
-        
-        # Predictive insights
-        'likely_to_settle': likely_to_settle,
-        'high_risk_claims': high_risk_claims,
-        'opportunities': opportunities,
-    }
+        return render(request, 'main/analytics_dashboard.html', context)
     
-    return render(request, 'main/analytics_dashboard.html', context)
+    except Exception as e:
+        # Log the error and show a friendly message
+        print(f"Analytics dashboard error: {e}")
+        messages.error(request, f"Error loading analytics dashboard: {str(e)}")
+        return redirect('home')
 
+
+# Remove the old _calculate_avg_processing_time function since it's causing issues
 
 def _calculate_avg_processing_time(queryset):
     """Helper function to calculate average processing time."""
