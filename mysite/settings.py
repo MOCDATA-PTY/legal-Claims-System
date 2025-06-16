@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@=2jh*jwvj#7=oh+4+ae2)y9j4ixy@f4l^5sf-3iv$2elvp4y#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
@@ -74,8 +74,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database (SQLite for Development)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'legal_system_db',
+        'USER': 'legal_system_user',
+        'PASSWORD': 'choose_a_secure_password',  # Replace with the password you set
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        },
     }
 }
 

@@ -1038,3 +1038,8 @@ def weekly_backup_status(request):
     }
     
     return render(request, 'main/weekly_backup_status.html', context)
+
+
+def custom_404(request, exception):
+    # Redirect to homepage
+    return redirect('index')
