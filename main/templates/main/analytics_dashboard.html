@@ -308,20 +308,179 @@
     </div>
     
     <script>
+        console.log('Chart.js loaded:', typeof Chart !== 'undefined');
         Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
         Chart.defaults.color = '#6b7280';
-        const statusData = {{ status_chart_data|safe }};
-        new Chart(document.getElementById('statusChart'), { type: 'pie', data: { labels: statusData.map(i => i.Status || 'Unknown'), datasets: [{ data: statusData.map(i => i.count), backgroundColor: ['#2563eb','#10b981','#f59e0b','#ef4444'], borderWidth: 2, borderColor: '#ffffff' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }});
-        const settlementData = {{ settlement_chart_data|safe }};
-        new Chart(document.getElementById('settlementChart'), { type: 'doughnut', data: { labels: settlementData.map(i => i.status), datasets: [{ data: settlementData.map(i => i.count), backgroundColor: ['#10b981','#f59e0b','#ef4444','#6b7280'], borderWidth: 2, borderColor: '#ffffff' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }});
-        const processData = {{ intent_to_formal_chart_data|safe }};
-        new Chart(document.getElementById('processChart'), { type: 'bar', data: { labels: processData.map(i => i.stage), datasets: [{ label: 'Count', data: processData.map(i => i.count), backgroundColor: ['#2563eb','#10b981','#f59e0b'], borderColor: ['#1d4ed8','#059669','#d97706'], borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }});
-        const clientData = {{ client_chart_data|safe }};
-        new Chart(document.getElementById('clientChart'), { type: 'bar', data: { labels: clientData.map(i => (i.client__name || 'Unknown').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: clientData.map(i => i.count || 0), backgroundColor: '#06b6d4', borderColor: '#0891b2', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
-        const branchData = {{ branch_chart_data|safe }};
-        new Chart(document.getElementById('branchChart'), { type: 'bar', data: { labels: branchData.map(i => (i.Branch || 'N/A').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: branchData.map(i => i.count || 0), backgroundColor: '#8b5cf6', borderColor: '#7c3aed', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
-        const brandData = {{ brand_chart_data|safe }};
-        new Chart(document.getElementById('brandChart'), { type: 'bar', data: { labels: brandData.map(i => (i.Brand || 'N/A').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: brandData.map(i => i.count || 0), backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
+        
+        // Status Chart
+        try {
+            const statusData = {{ status_chart_data|safe|default:"[]" }};
+            console.log('Status data:', statusData);
+            if (statusData && Array.isArray(statusData) && statusData.length > 0) {
+                new Chart(document.getElementById('statusChart'), { 
+                    type: 'pie', 
+                    data: { 
+                        labels: statusData.map(i => i.Status || 'Unknown'), 
+                        datasets: [{ 
+                            data: statusData.map(i => i.count), 
+                            backgroundColor: ['#2563eb','#10b981','#f59e0b','#ef4444'], 
+                            borderWidth: 2, 
+                            borderColor: '#ffffff' 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { position: 'bottom' } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Status chart error:', e);
+        }
+        
+        // Settlement Chart
+        try {
+            const settlementData = {{ settlement_chart_data|safe|default:"[]" }};
+            console.log('Settlement data:', settlementData);
+            if (settlementData && Array.isArray(settlementData) && settlementData.length > 0) {
+                new Chart(document.getElementById('settlementChart'), { 
+                    type: 'doughnut', 
+                    data: { 
+                        labels: settlementData.map(i => i.status), 
+                        datasets: [{ 
+                            data: settlementData.map(i => i.count), 
+                            backgroundColor: ['#10b981','#f59e0b','#ef4444','#6b7280'], 
+                            borderWidth: 2, 
+                            borderColor: '#ffffff' 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { position: 'bottom' } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Settlement chart error:', e);
+        }
+        
+        // Process Flow Chart
+        try {
+            const processData = {{ intent_to_formal_chart_data|safe|default:"[]" }};
+            console.log('Process data:', processData);
+            if (processData && Array.isArray(processData) && processData.length > 0) {
+                new Chart(document.getElementById('processChart'), { 
+                    type: 'bar', 
+                    data: { 
+                        labels: processData.map(i => i.stage), 
+                        datasets: [{ 
+                            label: 'Count', 
+                            data: processData.map(i => i.count), 
+                            backgroundColor: ['#2563eb','#10b981','#f59e0b'], 
+                            borderColor: ['#1d4ed8','#059669','#d97706'], 
+                            borderWidth: 1 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        scales: { y: { beginAtZero: true } }, 
+                        plugins: { legend: { display: false } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Process chart error:', e);
+        }
+        
+        // Client Chart
+        try {
+            const clientData = {{ client_chart_data|safe|default:"[]" }};
+            console.log('Client data:', clientData);
+            if (clientData && Array.isArray(clientData) && clientData.length > 0) {
+                new Chart(document.getElementById('clientChart'), { 
+                    type: 'bar', 
+                    data: { 
+                        labels: clientData.map(i => (i.client__name || 'Unknown').substring(0,15) + '...'), 
+                        datasets: [{ 
+                            label: 'Claims Count', 
+                            data: clientData.map(i => i.count || 0), 
+                            backgroundColor: '#06b6d4', 
+                            borderColor: '#0891b2', 
+                            borderWidth: 1 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        indexAxis: 'y', 
+                        plugins: { legend: { display: false } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Client chart error:', e);
+        }
+        
+        // Branch Chart
+        try {
+            const branchData = {{ branch_chart_data|safe|default:"[]" }};
+            console.log('Branch data:', branchData);
+            if (branchData && Array.isArray(branchData) && branchData.length > 0) {
+                new Chart(document.getElementById('branchChart'), { 
+                    type: 'bar', 
+                    data: { 
+                        labels: branchData.map(i => (i.Branch || 'N/A').substring(0,15) + '...'), 
+                        datasets: [{ 
+                            label: 'Claims Count', 
+                            data: branchData.map(i => i.count || 0), 
+                            backgroundColor: '#8b5cf6', 
+                            borderColor: '#7c3aed', 
+                            borderWidth: 1 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        indexAxis: 'y', 
+                        plugins: { legend: { display: false } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Branch chart error:', e);
+        }
+        
+        // Brand Chart
+        try {
+            const brandData = {{ brand_chart_data|safe|default:"[]" }};
+            console.log('Brand data:', brandData);
+            if (brandData && Array.isArray(brandData) && brandData.length > 0) {
+                new Chart(document.getElementById('brandChart'), { 
+                    type: 'bar', 
+                    data: { 
+                        labels: brandData.map(i => (i.Brand || 'N/A').substring(0,15) + '...'), 
+                        datasets: [{ 
+                            label: 'Claims Count', 
+                            data: brandData.map(i => i.count || 0), 
+                            backgroundColor: '#f59e0b', 
+                            borderColor: '#d97706', 
+                            borderWidth: 1 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        indexAxis: 'y', 
+                        plugins: { legend: { display: false } } 
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Brand chart error:', e);
+        }
     </script>
 </body>
 </html>

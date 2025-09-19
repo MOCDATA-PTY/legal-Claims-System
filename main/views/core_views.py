@@ -463,11 +463,21 @@ def analytics_dashboard(request):
         
         # === STATUS ANALYSIS ===
         status_counts = shipments.values('Status').annotate(count=models.Count('id'))
-        status_data = {item['Status']: item['count'] for item in status_counts}
+        status_data = {}
+        for item in status_counts:
+            status_data[item['Status']] = {
+                'count': item['count'],
+                'percentage': round((item['count'] / total_claims * 100), 1) if total_claims > 0 else 0
+            }
         
         # === SETTLEMENT ANALYSIS ===
         settlement_counts = shipments.values('Settlement_Status').annotate(count=models.Count('id'))
-        settlement_data = {item['Settlement_Status']: item['count'] for item in settlement_counts}
+        settlement_data = {}
+        for item in settlement_counts:
+            settlement_data[item['Settlement_Status']] = {
+                'count': item['count'],
+                'percentage': round((item['count'] / total_claims * 100), 1) if total_claims > 0 else 0
+            }
         
         # === BRANCH ANALYSIS ===
         branch_counts = shipments.values('Branch').annotate(count=models.Count('id'))
@@ -515,9 +525,37 @@ def analytics_dashboard(request):
             total_value=models.Sum('Claimed_Amount')
         ).order_by('-claim_count')[:10]
         
+        # === DETAILED CLIENT ANALYSIS ===
+        client_analysis = shipments.values('client__name', 'client__client_id').annotate(
+            count=models.Count('id'),
+            intent_count=models.Count('id', filter=models.Q(Intent_To_Claim='YES')),
+            formal_count=models.Count('id', filter=models.Q(Formal_Claim_Received='YES')),
+            settled_count=models.Count('id', filter=models.Q(Settlement_Status='SETTLED'))
+        ).order_by('-count')[:10]
+        
+        # === BRANCH ANALYSIS ===
+        branch_analysis = shipments.values('Branch').annotate(
+            count=models.Count('id'),
+            intent_count=models.Count('id', filter=models.Q(Intent_To_Claim='YES')),
+            formal_count=models.Count('id', filter=models.Q(Formal_Claim_Received='YES')),
+            settled_count=models.Count('id', filter=models.Q(Settlement_Status='SETTLED'))
+        ).order_by('-count')
+        
+        # === BRAND ANALYSIS ===
+        brand_analysis = shipments.values('Brand').annotate(
+            count=models.Count('id'),
+            intent_count=models.Count('id', filter=models.Q(Intent_To_Claim='YES')),
+            formal_count=models.Count('id', filter=models.Q(Formal_Claim_Received='YES')),
+            settled_count=models.Count('id', filter=models.Q(Settlement_Status='SETTLED'))
+        ).order_by('-count')[:10]
+        
         # === INTENT AND FORMAL CLAIM ANALYSIS ===
         intent_claims = shipments.filter(Intent_To_Claim='YES').count()
         formal_claims = shipments.filter(Formal_Claim_Received='YES').count()
+        open_claims = shipments.filter(Status='OPEN').count()
+        
+        # Calculate intent to formal conversion rate
+        intent_to_formal_rate = (formal_claims / intent_claims * 100) if intent_claims > 0 else 0
         
         # === FINANCIAL METRICS ===
         financial_metrics = {
@@ -532,6 +570,29 @@ def analytics_dashboard(request):
             'savings_rate': savings_rate,
         }
         
+        # === PREPARE CHART DATA ===
+        status_chart_data = json.dumps([{'Status': k, 'count': v['count']} for k, v in status_data.items()])
+        settlement_chart_data = json.dumps([{'status': k or 'Not Set', 'count': v['count']} for k, v in settlement_data.items()])
+        intent_to_formal_chart_data = json.dumps([
+            {'stage': 'Intent to Claim', 'count': intent_claims},
+            {'stage': 'Formal Claim', 'count': formal_claims},
+            {'stage': 'Settled', 'count': shipments.filter(Settlement_Status='SETTLED').count()}
+        ])
+        # Convert Decimal values to float for JSON serialization
+        client_chart_data_list = []
+        for client in client_stats[:10]:
+            client_data = {
+                'client__name': client['client__name'],
+                'client__client_id': client['client__client_id'],
+                'count': client['claim_count'],
+                'total_value': float(client['total_value'] or 0)
+            }
+            client_chart_data_list.append(client_data)
+        client_chart_data = json.dumps(client_chart_data_list)
+        branch_chart_data = json.dumps([{'Branch': k or 'Not Set', 'count': v['count']} for k, v in branch_data.items()])
+        # Convert brand data to ensure JSON serialization
+        brand_chart_data = json.dumps([{'Brand': item['Brand'] or 'Not Set', 'count': item['count']} for item in shipments.values('Brand').annotate(count=models.Count('id'))[:10]])
+        
         # === PREPARE CONTEXT ===
         context = {
             'total_claims': total_claims,
@@ -543,13 +604,29 @@ def analytics_dashboard(request):
             'client_stats': list(client_stats),
             'intent_claims': intent_claims,
             'formal_claims': formal_claims,
+            'open_claims': open_claims,
+            'intent_to_formal_rate': round(intent_to_formal_rate, 1),
+            'client_analysis': list(client_analysis),
+            'branch_analysis': list(branch_analysis),
+            'brand_analysis': list(brand_analysis),
             'financial_metrics': financial_metrics,
+            'status_chart_data': status_chart_data,
+            'settlement_chart_data': settlement_chart_data,
+            'intent_to_formal_chart_data': intent_to_formal_chart_data,
+            'client_chart_data': client_chart_data,
+            'branch_chart_data': branch_chart_data,
+            'brand_chart_data': brand_chart_data,
         }
         
         return render(request, 'main/analytics_dashboard.html', context)
-        
+    
     except Exception as e:
         # Handle any errors gracefully
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"Analytics error: {str(e)}")
+        print(f"Traceback: {error_details}")
+        print("Using fallback context with default chart data")
         context = {
             'error': f'Error loading analytics: {str(e)}',
             'total_claims': 0,
@@ -561,6 +638,11 @@ def analytics_dashboard(request):
             'client_stats': [],
             'intent_claims': 0,
             'formal_claims': 0,
+            'open_claims': 0,
+            'intent_to_formal_rate': 0,
+            'client_analysis': [],
+            'branch_analysis': [],
+            'brand_analysis': [],
             'financial_metrics': {
                 'total_claimed': 0,
                 'total_paid_iscm': 0,
@@ -572,6 +654,12 @@ def analytics_dashboard(request):
                 'recovery_rate': 0,
                 'savings_rate': 0,
             },
+            'status_chart_data': '[{"Status": "No Data", "count": 0}]',
+            'settlement_chart_data': '[{"status": "No Data", "count": 0}]',
+            'intent_to_formal_chart_data': '[{"stage": "No Data", "count": 0}]',
+            'client_chart_data': '[{"client__name": "No Data", "count": 0}]',
+            'branch_chart_data': '[{"Branch": "No Data", "count": 0}]',
+            'brand_chart_data': '[{"Brand": "No Data", "count": 0}]',
         }
         return render(request, 'main/analytics_dashboard.html', context)
 
