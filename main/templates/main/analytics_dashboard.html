@@ -35,12 +35,7 @@
             --analytics: #7c3aed;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
         body {
             background: url("{% static 'img/Pricing Report Page 1.png' %}") no-repeat center center;
@@ -53,412 +48,73 @@
             position: relative;
         }
         
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+        body::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         
-        .container {
-            width: calc(100% - var(--spacing)*2);
-            margin: 0 auto;
-            padding: 5px 0;
-            position: relative;
-        }
+        .container { width: calc(100% - var(--spacing)*2); margin: 0 auto; padding: 5px 0; position: relative; }
+        .logo { text-align: center; margin-bottom: 10px; }
+        .logo img { max-height: 80px; }
+        .header { padding: 10px 5px 20px; margin-bottom: var(--spacing); width: 100%; text-align: center; }
+        .header h1 { color: white; font-size: 1.75rem; font-weight: 600; margin-bottom: 4px; }
+        .header h2 { color: white; font-size: 1rem; font-weight: 400; }
         
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
+        .card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-lg); margin-bottom: var(--spacing); border: 1px solid var(--border); width: 100%; }
+        .card-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .card-title { font-size: 1rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .card-body { padding: 16px; }
         
-        .logo img {
-            max-height: 80px;
-        }
+        .action-bar { display: flex; gap: 12px; margin-bottom: var(--spacing); width: 100%; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius); border: none; font-weight: 500; font-size: 0.875rem; cursor: pointer; transition: all 0.15s ease; text-decoration: none; box-shadow: var(--shadow); }
+        .btn-back { background-color: var(--light-black); color: white; }
+        .btn-export { background-color: var(--primary); color: white; }
+        .btn-back:hover { background-color: #222222; }
+        .btn-export:hover { background-color: #1d4ed8; }
         
-        .header {
-            padding: 10px 5px 20px;
-            margin-bottom: var(--spacing);
-            width: 100%;
-            text-align: center;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing); margin-bottom: var(--spacing); }
+        .stat-card { background: var(--card-bg); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid var(--primary); transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+        .stat-card.success { border-left-color: var(--secondary); }
+        .stat-card.warning { border-left-color: var(--warning); }
+        .stat-card.danger { border-left-color: var(--danger); }
+        .stat-card.info { border-left-color: var(--info); }
+        .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .stat-title { font-size: 0.75rem; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-icon { font-size: 1.2rem; opacity: 0.7; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .stat-change { font-size: 0.75rem; font-weight: 500; }
+        .stat-change.positive { color: var(--secondary); }
+        .stat-change.negative { color: var(--danger); }
         
-        .header h1 {
-            color: white;
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing); margin-bottom: var(--spacing); }
+        .chart-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .chart-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .chart-title { font-size: 1rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .chart-container { position: relative; height: 250px; padding: 16px; }
+        .chart-container.large { height: 300px; }
         
-        .header h2 {
-            color: white;
-            font-size: 1rem;
-            font-weight: 400;
-        }
+        .tables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: var(--spacing); margin-bottom: var(--spacing); }
+        .table-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
+        .table-header { background: var(--primary); color: white; padding: 16px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .table-content { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+        th { background-color: var(--primary-light); color: var(--primary); text-align: left; padding: 6px 8px; font-weight: 600; white-space: nowrap; border-bottom: 1px solid var(--border); font-size: 0.7rem; position: sticky; top: 0; z-index: 10; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #f1f5f9; }
+        td { padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 0.7rem; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+        .badge { display: inline-block; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge.success { background: #dcfce7; color: #166534; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.danger { background: #fee2e2; color: #991b1b; }
+        .badge.info { background: #dbeafe; color: #1e40af; }
         
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            margin-bottom: var(--spacing);
-            border: 1px solid var(--border);
-            width: 100%;
-        }
-        
-        .card-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .card-body {
-            padding: 16px;
-        }
-        
-        .action-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: var(--spacing);
-            width: 100%;
-        }
-
-        .btn-danger{
-            background-color: red;
-            color: white;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: var(--radius);
-            border: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            text-decoration: none;
-            box-shadow: var(--shadow);
-        }
-        
-       .btn-analytics {
-    background-color: #ef4444; /* Red color */
-    color: white;
-}
-
-        
-        
-.btn-analytics:hover {
-    background-color: #dc2626; /* Darker red on hover */
-}
-        
-        .btn-export {
-            background-color: var(--light-black);
-            color: white;
-        }
-        
-        .btn-export:hover {
-            background-color: #222222;
-        }
-        
-        .btn-import {
-            background-color: #1d4ed8;
-            color: white;
-        }
-        
-        .btn-import:hover {
-            background-color: #fff;
-            color: black;
-        }
-        
-        .btn-new {
-            background-color: var(--grey);
-            color: white;
-        }
-        
-        .btn-new:hover {
-            background-color: #666666;
-        }
-        
-        .btn-back {
-            background-color: var(--grey);
-            color: white;
-        }
-        
-        .btn-back:hover {
-            background-color: #666666;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing);
-            margin-bottom: var(--spacing);
-        }
-        
-        .stat-card {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary);
-            transition: transform 0.2s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .stat-card.success {
-            border-left-color: var(--secondary);
-        }
-        
-        .stat-card.warning {
-            border-left-color: var(--warning);
-        }
-        
-        .stat-card.danger {
-            border-left-color: var(--danger);
-        }
-        
-        .stat-card.info {
-            border-left-color: var(--info);
-        }
-        
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .stat-title {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .stat-icon {
-            font-size: 1.2rem;
-            opacity: 0.7;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-        
-        .stat-change {
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .stat-change.positive {
-            color: var(--secondary);
-        }
-        
-        .stat-change.negative {
-            color: var(--danger);
-        }
-        
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing);
-            margin-bottom: var(--spacing);
-        }
-        
-        .chart-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .chart-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chart-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 250px;
-            padding: 16px;
-        }
-        
-        .chart-container.large {
-            height: 300px;
-        }
-        
-        .tables-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--spacing);
-            margin-bottom: var(--spacing);
-        }
-        
-        .table-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        
-        .table-header {
-            background: var(--primary);
-            color: white;
-            padding: 16px;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .table-content {
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.7rem;
-        }
-        
-        th {
-            background-color: var(--primary-light);
-            color: var(--primary);
-            text-align: left;
-            padding: 6px 8px;
-            font-weight: 600;
-            white-space: nowrap;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.7rem;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-        
-        tr:hover {
-            background-color: #f1f5f9;
-        }
-        
-        td {
-            padding: 6px 8px;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.7rem;
-            white-space: nowrap;
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .badge.success {
-            background: #dcfce7;
-            color: #166534;
-        }
-        
-        .badge.warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        
-        .badge.danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .badge.info {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            color: var(--text-light);
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .loading { display: flex; justify-content: center; align-items: center; height: 200px; color: var(--text-light); }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tables-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-bar {
-                flex-direction: column;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .tables-grid { grid-template-columns: 1fr; }
+            .action-bar { flex-direction: column; }
         }
     </style>
 </head>
@@ -551,104 +207,55 @@
         
         <!-- Charts Section -->
         <div class="charts-grid">
-            <!-- Status Distribution Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-chart-pie"></i> Claims Status Distribution
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Claims Status Distribution</h3>
                 </div>
-                <div class="chart-container">
-                    <canvas id="statusChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="statusChart"></canvas></div>
             </div>
-            
-            <!-- Settlement Status Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-chart-doughnut"></i> Settlement Status
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-chart-doughnut"></i> Settlement Status</h3>
                 </div>
-                <div class="chart-container">
-                    <canvas id="settlementChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="settlementChart"></canvas></div>
             </div>
-            
-            <!-- Intent to Formal Conversion Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-chart-bar"></i> Process Flow
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-chart-bar"></i> Process Flow</h3>
                 </div>
-                <div class="chart-container large">
-                    <canvas id="processChart"></canvas>
-                </div>
+                <div class="chart-container large"><canvas id="processChart"></canvas></div>
             </div>
-            
-            <!-- Client Analysis Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-users"></i> Top Clients by Claims
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-users"></i> Top Clients by Claims</h3>
                 </div>
-                <div class="chart-container">
-                    <canvas id="clientChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="clientChart"></canvas></div>
             </div>
-            
-            <!-- Branch Analysis Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-building"></i> Branch Performance
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-building"></i> Branch Performance</h3>
                 </div>
-                <div class="chart-container">
-                    <canvas id="branchChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="branchChart"></canvas></div>
             </div>
-            
-            <!-- Brand Analysis Chart -->
             <div class="card">
                 <div class="chart-header">
-                    <h3 class="chart-title">
-                        <i class="fas fa-tag"></i> Brand Performance
-                    </h3>
+                    <h3 class="chart-title"><i class="fas fa-tag"></i> Brand Performance</h3>
                 </div>
-                <div class="chart-container">
-                    <canvas id="brandChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="brandChart"></canvas></div>
             </div>
         </div>
         
         <!-- Data Tables -->
         <div class="tables-grid">
-            <!-- Top Clients Table -->
             <div class="table-card">
-                <div class="table-header">
-                    <i class="fas fa-users"></i> Top Clients by Claims Count
-                </div>
+                <div class="table-header"><i class="fas fa-users"></i> Top Clients by Claims Count</div>
                 <div class="table-content">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Client</th>
-                                <th>Total Claims</th>
-                                <th>Intent Claims</th>
-                                <th>Formal Claims</th>
-                                <th>Settled</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Client</th><th>Total Claims</th><th>Intent Claims</th><th>Formal Claims</th><th>Settled</th></tr></thead>
                         <tbody>
                             {% for client in client_analysis %}
                             <tr>
-                                <td>
-                                    <strong>{{ client.client__name|default:"N/A" }}</strong><br>
-                                    <small style="color: var(--text-light);">{{ client.client__client_id|default:"N/A" }}</small>
-                                </td>
+                                <td><strong>{{ client.client__name|default:"N/A" }}</strong><br><small style="color: var(--text-light);">{{ client.client__client_id|default:"N/A" }}</small></td>
                                 <td>{{ client.count }}</td>
                                 <td>{{ client.intent_count }}</td>
                                 <td>{{ client.formal_count }}</td>
@@ -659,23 +266,11 @@
                     </table>
                 </div>
             </div>
-            
-            <!-- Branch Analysis Table -->
             <div class="table-card">
-                <div class="table-header">
-                    <i class="fas fa-building"></i> Branch Analysis
-                </div>
+                <div class="table-header"><i class="fas fa-building"></i> Branch Analysis</div>
                 <div class="table-content">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Branch</th>
-                                <th>Total Claims</th>
-                                <th>Intent Claims</th>
-                                <th>Formal Claims</th>
-                                <th>Settled</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Branch</th><th>Total Claims</th><th>Intent Claims</th><th>Formal Claims</th><th>Settled</th></tr></thead>
                         <tbody>
                             {% for branch in branch_analysis %}
                             <tr>
@@ -690,23 +285,11 @@
                     </table>
                 </div>
             </div>
-            
-            <!-- Brand Analysis Table -->
             <div class="table-card">
-                <div class="table-header">
-                    <i class="fas fa-tag"></i> Brand Analysis
-                </div>
+                <div class="table-header"><i class="fas fa-tag"></i> Brand Analysis</div>
                 <div class="table-content">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Brand</th>
-                                <th>Total Claims</th>
-                                <th>Intent Claims</th>
-                                <th>Formal Claims</th>
-                                <th>Settled</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Brand</th><th>Total Claims</th><th>Intent Claims</th><th>Formal Claims</th><th>Settled</th></tr></thead>
                         <tbody>
                             {% for brand in brand_analysis %}
                             <tr>
@@ -725,189 +308,20 @@
     </div>
     
     <script>
-        // Chart.js configuration
         Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
         Chart.defaults.color = '#6b7280';
-        
-        // Status Distribution Chart
         const statusData = {{ status_chart_data|safe }};
-        const statusCtx = document.getElementById('statusChart').getContext('2d');
-        new Chart(statusCtx, {
-            type: 'pie',
-            data: {
-                labels: statusData.map(item => item.Status || 'Unknown'),
-                datasets: [{
-                    data: statusData.map(item => item.count),
-                    backgroundColor: [
-                        '#2563eb',
-                        '#10b981',
-                        '#f59e0b',
-                        '#ef4444'
-                    ],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
-            }
-        });
-        
-        // Settlement Status Chart
+        new Chart(document.getElementById('statusChart'), { type: 'pie', data: { labels: statusData.map(i => i.Status || 'Unknown'), datasets: [{ data: statusData.map(i => i.count), backgroundColor: ['#2563eb','#10b981','#f59e0b','#ef4444'], borderWidth: 2, borderColor: '#ffffff' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }});
         const settlementData = {{ settlement_chart_data|safe }};
-        const settlementCtx = document.getElementById('settlementChart').getContext('2d');
-        new Chart(settlementCtx, {
-            type: 'doughnut',
-            data: {
-                labels: settlementData.map(item => item.status),
-                datasets: [{
-                    data: settlementData.map(item => item.count),
-                    backgroundColor: [
-                        '#10b981',
-                        '#f59e0b',
-                        '#ef4444',
-                        '#6b7280'
-                    ],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
-            }
-        });
-        
-        // Process Flow Chart
+        new Chart(document.getElementById('settlementChart'), { type: 'doughnut', data: { labels: settlementData.map(i => i.status), datasets: [{ data: settlementData.map(i => i.count), backgroundColor: ['#10b981','#f59e0b','#ef4444','#6b7280'], borderWidth: 2, borderColor: '#ffffff' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }});
         const processData = {{ intent_to_formal_chart_data|safe }};
-        const processCtx = document.getElementById('processChart').getContext('2d');
-        new Chart(processCtx, {
-            type: 'bar',
-            data: {
-                labels: processData.map(item => item.stage),
-                datasets: [{
-                    label: 'Count',
-                    data: processData.map(item => item.count),
-                    backgroundColor: [
-                        '#2563eb',
-                        '#10b981',
-                        '#f59e0b'
-                    ],
-                    borderColor: [
-                        '#1d4ed8',
-                        '#059669',
-                        '#d97706'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-        
-        // Client Analysis Chart
+        new Chart(document.getElementById('processChart'), { type: 'bar', data: { labels: processData.map(i => i.stage), datasets: [{ label: 'Count', data: processData.map(i => i.count), backgroundColor: ['#2563eb','#10b981','#f59e0b'], borderColor: ['#1d4ed8','#059669','#d97706'], borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }});
         const clientData = {{ client_chart_data|safe }};
-        const clientCtx = document.getElementById('clientChart').getContext('2d');
-        new Chart(clientCtx, {
-            type: 'bar',
-            data: {
-                labels: clientData.map(item => (item.client__name || 'Unknown').substring(0, 15) + '...'),
-                datasets: [{
-                    label: 'Claims Count',
-                    data: clientData.map(item => item.count || 0),
-                    backgroundColor: '#06b6d4',
-                    borderColor: '#0891b2',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-        
-        // Branch Analysis Chart
+        new Chart(document.getElementById('clientChart'), { type: 'bar', data: { labels: clientData.map(i => (i.client__name || 'Unknown').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: clientData.map(i => i.count || 0), backgroundColor: '#06b6d4', borderColor: '#0891b2', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
         const branchData = {{ branch_chart_data|safe }};
-        const branchCtx = document.getElementById('branchChart').getContext('2d');
-        new Chart(branchCtx, {
-            type: 'bar',
-            data: {
-                labels: branchData.map(item => (item.Branch || 'N/A').substring(0, 15) + '...'),
-                datasets: [{
-                    label: 'Claims Count',
-                    data: branchData.map(item => item.count || 0),
-                    backgroundColor: '#8b5cf6',
-                    borderColor: '#7c3aed',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-        
-        // Brand Analysis Chart
+        new Chart(document.getElementById('branchChart'), { type: 'bar', data: { labels: branchData.map(i => (i.Branch || 'N/A').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: branchData.map(i => i.count || 0), backgroundColor: '#8b5cf6', borderColor: '#7c3aed', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
         const brandData = {{ brand_chart_data|safe }};
-        const brandCtx = document.getElementById('brandChart').getContext('2d');
-        new Chart(brandCtx, {
-            type: 'bar',
-            data: {
-                labels: brandData.map(item => (item.Brand || 'N/A').substring(0, 15) + '...'),
-                datasets: [{
-                    label: 'Claims Count',
-                    data: brandData.map(item => item.count || 0),
-                    backgroundColor: '#f59e0b',
-                    borderColor: '#d97706',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
+        new Chart(document.getElementById('brandChart'), { type: 'bar', data: { labels: brandData.map(i => (i.Brand || 'N/A').substring(0,15) + '...'), datasets: [{ label: 'Claims Count', data: brandData.map(i => i.count || 0), backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }});
     </script>
 </body>
 </html>

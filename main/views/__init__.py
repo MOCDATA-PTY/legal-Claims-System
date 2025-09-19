@@ -55,6 +55,7 @@ from .data_views import (
     setup_backup_directory,
     format_file_size,
     start_backup_thread,
+    custom_404
 )
 
 # Make all views available at package level
@@ -106,4 +107,5 @@ __all__ = [
     'setup_backup_directory',
     'format_file_size',
     'start_backup_thread',
+    'custom_404',
 ]
