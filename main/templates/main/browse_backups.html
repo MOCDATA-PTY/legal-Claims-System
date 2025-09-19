@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup Management - American Worldwide Agencies</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --background: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --radius: 6px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --spacing: 20px;
+            --light-black: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: url("{% static 'img/Pricing Report Page 1.png' %}") no-repeat center center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.5;
+            padding: var(--spacing);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+            position: relative;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo img {
+            max-height: 70px;
+        }
+        
+        .header {
+            padding: 15px 5px 20px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--spacing);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-title i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .card-body {
+            padding: 18px 20px;
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: var(--spacing);
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .btn-back {
+            background-color: var(--light-black);
+            color: white;
+        }
+        
+        .btn-back:hover {
+            background-color: #222222;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-action {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            text-align: center;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .quick-action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .quick-action i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .quick-action.weekly i { color: var(--primary); }
+        .quick-action.manual i { color: var(--secondary); }
+        .quick-action.analytics i { color: var(--warning); }
+        
+        .quick-action h3 {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .quick-action p {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        /* File Lists */
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .file-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.15s ease;
+        }
+        
+        .file-item:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary);
+        }
+        
+        .file-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .file-size, .file-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .file-icon {
+            font-size: 1.1rem;
+        }
+        
+        .file-icon.excel { color: #217346; }
+        .file-icon.csv { color: #1d4ed8; }
+        .file-icon.pdf { color: #e91e63; }
+        
+        .no-files {
+            text-align: center;
+            color: var(--text-light);
+            padding: 30px 20px;
+            font-style: italic;
+        }
+        
+        .no-files i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .action-bar {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .file-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'img/Logo.png' %}" alt="American Worldwide Agencies Logo">
+        </div>
+        
+        <div class="header">
+            <h1>American Worldwide Agencies</h1>
+            <h2>Backup Management</h2>
+        </div>
+
+        <div class="action-bar">
+            <a href="{% url 'home' %}" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <a href="{% url 'manual_backup_now' %}" class="btn btn-success">
+                <i class="fas fa-sync-alt"></i> Create Backup
+            </a>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="quick-actions">
+                    <a href="{% url 'weekly_backup_status' %}" class="quick-action weekly">
+                        <i class="fas fa-calendar-week"></i>
+                        <h3>Weekly Backup Status</h3>
+                        <p>View countdown and backup schedule</p>
+                        <div class="btn btn-primary btn-sm">View Status</div>
+                    </a>
+                    
+                    <a href="{% url 'manual_backup_now' %}" class="quick-action manual">
+                        <i class="fas fa-download"></i>
+                        <h3>Manual Backup</h3>
+                        <p>Create immediate backup now</p>
+                        <div class="btn btn-success btn-sm">Create Now</div>
+                    </a>
+                    
+                    <a href="{% url 'analytics_dashboard' %}" class="quick-action analytics">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Analytics Dashboard</h3>
+                        <p>View data analysis and metrics</p>
+                        <div class="btn btn-warning btn-sm">View Analytics</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Sections -->
+        {% for format, files in backup_files.items %}
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    {% if format == 'excel' %}
+                    <i class="fas fa-file-excel file-icon excel"></i>
+                    {% elif format == 'csv' %}
+                    <i class="fas fa-file-csv file-icon csv"></i>
+                    {% elif format == 'pdf' %}
+                    <i class="fas fa-file-pdf file-icon pdf"></i>
+                    {% endif %}
+                    {{ format|upper }} Files
+                </div>
+                <span class="badge">{{ files|length }} file{{ files|length|pluralize }}</span>
+            </div>
+            <div class="card-body">
+                {% if files %}
+                <ul class="file-list">
+                    {% for file in files %}
+                    <li class="file-item">
+                        <div class="file-name">
+                            {% if format == 'excel' %}
+                            <i class="fas fa-file-excel file-icon excel"></i>
+                            {% elif format == 'csv' %}
+                            <i class="fas fa-file-csv file-icon csv"></i>
+                            {% elif format == 'pdf' %}
+                            <i class="fas fa-file-pdf file-icon pdf"></i>
+                            {% endif %}
+                            {{ file.name }}
+                        </div>
+                        <div class="file-info">
+                            <span class="file-size">
+                                <i class="fas fa-weight-hanging"></i>
+                                {{ file.size_formatted }}
+                            </span>
+                            <span class="file-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                {{ file.modified|date:"M j, Y" }}
+                            </span>
+                            <a href="{% url 'download_backup' format_type=format filename=file.name %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="no-files">
+                    <i class="fas fa-folder-open"></i>
+                    <p>No {{ format|upper }} files found. Create a backup to populate this section.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if not has_backups %}
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-info-circle"></i> No Backup Files
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="no-files">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>No backup files found</h3>
+                    <p>Create your first backup to get started.</p>
+                    <a href="{% url 'manual_backup_now' %}" class="btn btn-primary" style="margin-top: 16px;">
+                        <i class="fas fa-download"></i> Create First Backup
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

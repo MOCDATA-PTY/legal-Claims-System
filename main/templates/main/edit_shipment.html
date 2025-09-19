@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Shipment</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("{% static 'img/Pricing Report Page 1.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 800px;
+            min-height: 100vh;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .shipment-number {
+            font-size: 1rem;
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+
+        .modal-body {
+            background-color: white;
+            padding: 2rem;
+            flex: 1;
+            overflow: visible;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            flex: 1;
+        }
+
+        .form-group.full-width {
+            flex: 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: black;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: white;
+            color: black;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .readonly-field {
+            background-color: #f9fafb;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid #ccc;
+            background-color: white;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary {
+            background-color: black;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        .btn-cancel {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #4b5563;
+        }
+
+        .errorlist {
+            color: #ef4444;
+            font-size: 0.9rem;
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .modal {
+                max-width: 100%;
+            }
+            
+            .modal-body {
+                padding: 1rem;
+            }
+            
+            .modal-header {
+                padding: 1rem;
+            }
+            
+            .modal-footer {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <div class="modal-header">
+            Edit Shipment
+            <div class="shipment-number">Reference: #{{ shipment.Claim_No }}</div>
+        </div>
+        
+        <div class="modal-body">
+            <form method="POST" id="editForm">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="form-group">
+                    <ul class="errorlist">
+                        {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Basic Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Claim_No">Shipment Number</label>
+                            <input type="text" name="Claim_No" value="{{ shipment.Claim_No }}" maxlength="100" required id="id_Claim_No">
+                            {% if form.Claim_No.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.Claim_No.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Branch">Branch</label>
+                            <select name="Branch" required id="id_Branch">
+                                <option value="">Select Branch</option>
+                                <option value="ATL" {% if shipment.Branch == 'ATL' %}selected{% endif %}>ATL</option>
+                                <option value="CMU" {% if shipment.Branch == 'CMU' %}selected{% endif %}>CMU</option>
+                                <option value="CON" {% if shipment.Branch == 'CON' %}selected{% endif %}>CON</option>
+                                <option value="DOR" {% if shipment.Branch == 'DOR' %}selected{% endif %}>DOR</option>
+                                <option value="HEC" {% if shipment.Branch == 'HEC' %}selected{% endif %}>HEC</option>
+                                <option value="HNL" {% if shipment.Branch == 'HNL' %}selected{% endif %}>HNL</option>
+                                <option value="HOU" {% if shipment.Branch == 'HOU' %}selected{% endif %}>HOU</option>
+                                <option value="ICS" {% if shipment.Branch == 'ICS' %}selected{% endif %}>ICS</option>
+                                <option value="IMP" {% if shipment.Branch == 'IMP' %}selected{% endif %}>IMP</option>
+                                <option value="JFK" {% if shipment.Branch == 'JFK' %}selected{% endif %}>JFK</option>
+                                <option value="LAX" {% if shipment.Branch == 'LAX' %}selected{% endif %}>LAX</option>
+                                <option value="LCL" {% if shipment.Branch == 'LCL' %}selected{% endif %}>LCL</option>
+                                <option value="ORD" {% if shipment.Branch == 'ORD' %}selected{% endif %}>ORD</option>
+                                <option value="PPG" {% if shipment.Branch == 'PPG' %}selected{% endif %}>PPG</option>
+                            </select>
+                            {% if form.Branch.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.Branch.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_client">Client</label>
+                            <select name="client" required id="id_client">
+                                <option value="">Select Client</option>
+                                {% for client in clients %}
+                                <option value="{{ client.id }}" {% if shipment.client.id == client.id %}selected{% endif %}>
+                                    {{ client.name }} ({{ client.client_id }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                            {% if form.client.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.client.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Brand">Brand</label>
+                            <input type="text" name="Brand" value="{{ shipment.Brand|default:'' }}" maxlength="100" id="id_Brand">
+                            {% if form.Brand.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.Brand.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_Claimant">Claimant Name</label>
+                        <input type="text" name="Claimant" value="{{ shipment.Claimant|default:'' }}" maxlength="200" id="id_Claimant">
+                        {% if form.Claimant.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.Claimant.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Claim Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Claim Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Intent_To_Claim">Intent To Claim</label>
+                            <select name="Intent_To_Claim" id="id_Intent_To_Claim">
+                                <option value="">Select</option>
+                                <option value="YES" {% if shipment.Intent_To_Claim == 'YES' %}selected{% endif %}>Yes</option>
+                                <option value="NO" {% if shipment.Intent_To_Claim == 'NO' %}selected{% endif %}>No</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Intend_Claim_Date">Intent To Claim Date</label>
+                            <input type="date" name="Intend_Claim_Date" value="{{ shipment.Intend_Claim_Date|date:'Y-m-d' }}" id="id_Intend_Claim_Date">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Formal_Claim_Received">Formal Claim Received</label>
+                            <select name="Formal_Claim_Received" id="id_Formal_Claim_Received">
+                                <option value="">Select</option>
+                                <option value="YES" {% if shipment.Formal_Claim_Received == 'YES' %}selected{% endif %}>Yes</option>
+                                <option value="NO" {% if shipment.Formal_Claim_Received == 'NO' %}selected{% endif %}>No</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Formal_Claim_Date_Received">Formal Claim Date</label>
+                            <input type="date" name="Formal_Claim_Date_Received" value="{{ shipment.Formal_Claim_Date_Received|date:'Y-m-d' }}" id="id_Formal_Claim_Date_Received">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Financial Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Claimed_Amount">Claimed Amount</label>
+                            <input type="number" step="0.01" name="Claimed_Amount" value="{{ shipment.Claimed_Amount }}" id="id_Claimed_Amount">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Financial_Exposure">Financial Exposure</label>
+                            <input type="number" step="0.01" name="Financial_Exposure" value="{{ shipment.Financial_Exposure }}" id="id_Financial_Exposure">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Amount_Paid_By_Carrier">Paid By Carrier</label>
+                            <input type="number" step="0.01" name="Amount_Paid_By_Carrier" value="{{ shipment.Amount_Paid_By_Carrier }}" id="id_Amount_Paid_By_Carrier">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Amount_Paid_By_Awa">Paid By ISCM/AWA</label>
+                            <input type="number" step="0.01" name="Amount_Paid_By_Awa" value="{{ shipment.Amount_Paid_By_Awa }}" id="id_Amount_Paid_By_Awa">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Amount_Paid_By_Insurance">Paid By Insurance</label>
+                            <input type="number" step="0.01" name="Amount_Paid_By_Insurance" value="{{ shipment.Amount_Paid_By_Insurance }}" id="id_Amount_Paid_By_Insurance">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Total_Savings">Total Savings</label>
+                            <input type="number" step="0.01" name="Total_Savings" value="{{ shipment.Total_Savings }}" id="id_Total_Savings" class="readonly-field" readonly>
+                            <div class="help-text">Auto-calculated based on claimed amount and payments</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Status Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_Status">Status</label>
+                            <select name="Status" id="id_Status">
+                                <option value="OPEN" {% if shipment.Status == 'OPEN' %}selected{% endif %}>Open</option>
+                                <option value="PENDING" {% if shipment.Status == 'PENDING' %}selected{% endif %}>Pending</option>
+                                <option value="CLOSED" {% if shipment.Status == 'CLOSED' %}selected{% endif %}>Closed</option>
+                                <option value="REJECTED" {% if shipment.Status == 'REJECTED' %}selected{% endif %}>Rejected</option>
+                                <option value="UNDER_REVIEW" {% if shipment.Status == 'UNDER_REVIEW' %}selected{% endif %}>Under Review</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_Settlement_Status">Settlement Status</label>
+                            <select name="Settlement_Status" id="id_Settlement_Status">
+                                <option value="">Select</option>
+                                <option value="SETTLED" {% if shipment.Settlement_Status == 'SETTLED' %}selected{% endif %}>Settled</option>
+                                <option value="NOT_SETTLED" {% if shipment.Settlement_Status == 'NOT_SETTLED' %}selected{% endif %}>Not Settled</option>
+                                <option value="PARTIAL" {% if shipment.Settlement_Status == 'PARTIAL' %}selected{% endif %}>Partially Settled</option>
+                            </select>
+                            <div class="help-text">Auto-updated based on payment amounts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_Closed_Date">Closed Date</label>
+                        <input type="date" name="Closed_Date" value="{{ shipment.Closed_Date|date:'Y-m-d' }}" id="id_Closed_Date">
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="submit" form="editForm" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'shipment_list' %}" class="btn btn-cancel">Cancel</a>
+        </div>
+    </div>
+
+    <script>
+        // Auto-calculate Total Savings when payment fields change
+        function calculateTotalSavings() {
+            const claimed = parseFloat(document.getElementById('id_Claimed_Amount').value) || 0;
+            const carrier = parseFloat(document.getElementById('id_Amount_Paid_By_Carrier').value) || 0;
+            const awa = parseFloat(document.getElementById('id_Amount_Paid_By_Awa').value) || 0;
+            const insurance = parseFloat(document.getElementById('id_Amount_Paid_By_Insurance').value) || 0;
+            
+            const totalPaid = carrier + awa + insurance;
+            const totalSavings = Math.max(0, claimed - totalPaid);
+            
+            document.getElementById('id_Total_Savings').value = totalSavings.toFixed(2);
+        }
+
+        // Add event listeners to payment fields
+        ['id_Claimed_Amount', 'id_Amount_Paid_By_Carrier', 'id_Amount_Paid_By_Awa', 'id_Amount_Paid_By_Insurance'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateTotalSavings);
+        });
+    </script>
+</body>
+</html>

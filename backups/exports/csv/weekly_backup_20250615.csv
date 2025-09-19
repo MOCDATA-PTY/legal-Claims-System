@@ -1,0 +1,288 @@
+Shipment No,Brand,Claimant,Claim ID,Client Name,Intent,Intent Date,Formal,Formal Date,Value,ISCM Paid,Carrier Paid,Insurance,Branch,Savings,Settlement,Exposure,Status,Closed,Actions
+S00365280,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,"$21,524",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00404869,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00389641,AWA,Complete Freight,CL00092,Complete Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00386530,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00398378,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00405335,AWA,IDS International,CL00029,IDS International,No,-,No,-,$0,"$11,524","$1,276",$638,,$0,-,$638,Open,-,Edit/Delete
+S00379213,AWA,San Juan Constr.,CL00091,San Juan Constr.,No,-,No,-,$0,"$12,224","$48,000",$0,,$0,-,"$48,000",Open,-,Edit/Delete
+S00398833,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00387977,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00392867,AWA,Elto Freight,CL00030,Elto Freight,No,-,No,-,$0,"$12,324",$553,$0,,$0,-,$553,Open,-,Edit/Delete
+S00409000,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00407763,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00397890,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00375718,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,"$21,524","$26,500",$0,,$0,-,"$26,500",Open,-,Edit/Delete
+S00394421,AWA,Powerhouse logistics,CL00028,Powerhouse logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00399696,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00404084,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00404639,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00400676,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,"$21,924",$90,$90,,$0,-,$0,Open,-,Edit/Delete
+S00408233,AWA,Clarke Global,CL00090,Clarke Global,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00413115,AWA,Freight Consol,CL00089,Freight Consol,No,-,No,-,$0,"$22,324",$311,$311,,$0,-,$0,Open,-,Edit/Delete
+S00410656,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00412856,AWA,Veritrans,CL00088,Veritrans,No,-,No,-,$0,"$32,024","$59,903",$0,,$0,-,"$59,903",Open,-,Edit/Delete
+S00406361,ICS,Kalgin,CL00087,Kalgin,No,-,No,-,$0,"$10,125",$500,$500,,$0,-,$0,Open,-,Edit/Delete
+S00414008,ICS,Office Wagon,CL00086,Office Wagon,No,-,No,-,$0,"$32,624",$533,$533,,$0,-,$0,Open,-,Edit/Delete
+S00415022,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00419992,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421087,AWA,Book system Int,CL00063,Book system Int,No,-,No,-,$0,"$40,824",$250,$0,,$0,-,$250,Open,-,Edit/Delete
+S00422756,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421944,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00413352,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00414239,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00414530,AWA,Vanair,CL00085,Vanair,No,-,No,-,$0,"$42,524","$1,149",$500,,$0,-,$649,Open,-,Edit/Delete
+S00414548,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00416811,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421799,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00420815,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421909,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421654,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00423398,AWA,Elto Freight,CL00030,Elto Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00422873,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00424273,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00420996,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00422646,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00424699,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00424943,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00424786,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00425553,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00425638,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00416507,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00415225,AWA,Magellan Logistics,CL00062,Magellan Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00418080,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00418096,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00423926,AWA,Airland Logistics,CL00084,Airland Logistics,No,-,No,-,$0,"$51,524","$1,527",$0,,$0,-,$0,Open,-,Edit/Delete
+S00424818,AWA,Freight Tasker,CL00083,Freight Tasker,No,-,No,-,$0,"$51,724","$6,070",$0,,$0,-,"$4,779",Open,-,Edit/Delete
+S00427531,AWA,On-board logistics,CL00082,On-board logistics,No,-,No,-,$0,"$52,524",$462,$0,,$0,-,$462,Open,-,Edit/Delete
+S00429559,AWA,ITM,CL00004,ITM,No,-,No,-,$0,"$60,324","$1,612",$62,,$0,-,"$1,550",Open,-,Edit/Delete
+S00430562,AWA,I.H Hunter,CL00081,I.H Hunter,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00428440,AWA,I.H Hunter,CL00081,I.H Hunter,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00420572,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421867,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00430008,AWA,Aus Global Freight,CL00080,Aus Global Freight,No,-,No,-,$0,"$62,124","$4,242",$0,,$0,-,"$4,242",Open,-,Edit/Delete
+S00427226,AWA,Magellan Logistics,CL00062,Magellan Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00421673,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00424538,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00408325,AWA,CFL,CL00079,CFL,No,-,No,-,$0,"$71,924",$100,$50,,$0,-,$50,Open,-,Edit/Delete
+S00422963,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00433149,AWA,Ical Int,CL00017,Ical Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00431718,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00432996,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00432915,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00425495,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00432231,AWA,Seabridge Logistics,CL00078,Seabridge Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00419493,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00409871,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,"$62,624","$95,000",$0,,$0,-,"$95,000",Open,-,Edit/Delete
+S00418694,AWA,Dateline,CL00077,Dateline,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00436278,AWA,Geodis USA,CL00076,Geodis USA,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00430024,AWA,TGI Cargo,CL00009,TGI Cargo,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00434585,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,"$80,724","$1,710",$0,,$0,-,"$1,710",Open,-,Edit/Delete
+S00430250,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+YMLU880911,AWA,Tech Cargo,CL00038,Tech Cargo,No,-,No,-,$0,"$70,924","$259,630",$0,,$0,-,"$259,630",Open,-,Edit/Delete
+S00436194,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00429831,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00437158,AWA,Toll Group Forwarding,CL00048,Toll Group Forwarding,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00431182,AWA,EIF Int,CL00075,EIF Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00431618,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00427111,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00428646,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00429962,ICS,Swire Shipping,CL00074,Swire Shipping,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00433802,AWA,Cargo Movers,CL00073,Cargo Movers,No,-,No,-,$0,"$72,324",$432,$0,,$0,-,$432,Open,-,Edit/Delete
+S00435769,AWA,D&A Cargo Forwarding,CL00012,D&A Cargo Forwarding,No,-,No,-,$0,"$72,224","$2,005",$0,,$0,-,"$2,005",Open,-,Edit/Delete
+S00437397,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00437263,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00435429,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00435147,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00436332,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00435169,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00434354,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00436621,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00435666,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00439499,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00436362,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00439933,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00433271,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00440173,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00440660,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00433052,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00430965,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00441359,AWA,Blue star global,CL00072,Blue star global,No,-,No,-,$0,"$81,324",$719,$0,,$0,-,$719,Open,-,Edit/Delete
+S00439318,AWA,Aquaair Freight Ser,CL00071,Aquaair Freight Ser,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442317,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00437145,AWA,DHL AU,CL00037,DHL AU,No,-,No,-,$0,"$81,624",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442726,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00437114,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00439234,AWA,XLI Global,CL00015,XLI Global,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443741,HEC,High Output,CL00070,High Output,No,-,No,-,$0,"$82,624","$7,150","$1,000",,$0,-,"$6,150",Open,-,Edit/Delete
+S00445487,AWA,Book system Int,CL00063,Book system Int,No,-,No,-,$0,"$82,824",$859,$0,,$0,-,$859,Open,-,Edit/Delete
+S00443463,HEC,Boys like Girls,CL00069,Boys like Girls,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00426914,AWA,Mega freight,CL00026,Mega freight,No,-,No,-,$0,"$82,824",$377,$377,,$0,-,$0,Open,-,Edit/Delete
+S00441712,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00411572,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00445959,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00446794,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00438776,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00437464,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00445651,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442791,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443799,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00431707,AWA,Ideal Logistics,CL00068,Ideal Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00445055,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443084,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443998,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00446208,AWA,Gebruder Weiss,CL00067,Gebruder Weiss,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00433908,AWA,Aurora Logistics,CL00066,Aurora Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00432201,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00448134,AWA,Tomax Logistics,CL00065,Tomax Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00447357,AWA,Keen & Able Logistics,CL00064,Keen & Able Logistics,No,-,No,-,$0,"$91,824","$3,138","$1,569",,$0,-,"$1,569",Open,-,Edit/Delete
+S00449150,AWA,Book system Int,CL00063,Book system Int,No,-,No,-,$0,"$91,824",$395,$0,,$0,-,$395,Open,-,Edit/Delete
+S00433599,AWA,Craft Multimodal,CL00031,Craft Multimodal,No,-,No,-,$0,"$92,724",$850,$850,,$0,-,$0,Open,-,Edit/Delete
+S00439990,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00439977,AWA,Magellan Logistics,CL00062,Magellan Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442626,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00451476,AWA,Aloha Freight Forwarders,CL00061,Aloha Freight Forwarders,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443353,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00449019,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00451495,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00451641,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00451648,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00439995,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443200,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,"$101,824",$735,$500,,$0,-,$235,Open,-,Edit/Delete
+S00446753,AWA,Airmark O&A Freight,CL00060,Airmark O&A Freight,No,-,No,-,$0,"$100,124",$135,$135,,$0,-,$0,Open,-,Edit/Delete
+S00434976,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00453825,AWA,JFK International,CL00059,JFK International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00450851,AWA,BTI Logistics,CL00058,BTI Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00449493,AWA,Scholle IPN,CL00057,Scholle IPN,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442410,AWA,Transcon Trading,CL00056,Transcon Trading,No,-,No,-,$0,"$10,125","$2,614",$0,,"$2,902",-,$288,Open,-,Edit/Delete
+S00445789,AWA,JC Ford,CL00055,JC Ford,No,-,No,-,$0,"$100,924","$22,570",$0,,$0,-,"$22,570",Open,-,Edit/Delete
+S00444829,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443236,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,"$110,524",$263,$131,,$0,-,$131,Open,-,Edit/Delete
+S00443570,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443572,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00442683,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443560,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00444261,AWA,Jazanna Customs,CL00054,Jazanna Customs,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00455744,AWA,One Circle Logistics,CL00053,One Circle Logistics,No,-,No,-,$0,"$101,724","$116,421",$0,,$0,-,"$116,421",Open,-,Edit/Delete
+S00441603,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00443371,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00431045,AWA,Avance Freight,CL00052,Avance Freight,No,-,No,-,$0,"$101,624",$633,$0,,$0,-,$0,Open,-,Edit/Delete
+S00448480,AWA,ITM,CL00004,ITM,No,-,No,-,$0,"$101,724",$319,$159,,$0,-,$0,Open,-,Edit/Delete
+S00454643,AWA,Toll Group Forwarding,CL00048,Toll Group Forwarding,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00453837,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00454156,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00444524,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00444449,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00454785,AWA,Aero Africa,CL00051,Aero Africa,No,-,No,-,$0,"$103,124","$5,514",$0,,$0,-,"$5,514",Open,-,Edit/Delete
+S00457875,AWA,TD Williamson,CL00050,TD Williamson,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00455830,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00452530,AWA,DHL AU,CL00037,DHL AU,No,-,No,-,$0,"$102,224",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00448061,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00456394,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00455070,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+T00006922,AWA,Pro AG-CHB  MIAMI,CL00049,Pro AG-CHB  MIAMI,No,-,No,-,$0,"$102,424","$303,250",$0,,$0,-,"$303,250",Open,-,Edit/Delete
+S00440224,AWA,Elto Freight,CL00030,Elto Freight,No,-,No,-,$0,"$102,524",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00450500,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00454716,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00459925,AWA,Toll Group Forwarding,CL00048,Toll Group Forwarding,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00454603,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00452208,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00451371,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00458131,AWA,DHL AU,CL00037,DHL AU,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00454944,AWA,Elto Freight,CL00030,Elto Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00452051,AWA,Patriot Construction,CL00047,Patriot Construction,No,-,No,-,$0,"$10,125","$2,000","$1,500",,$0,-,$500,Open,-,Edit/Delete
+S00408927,AWA,Chromeo,CL00046,Chromeo,No,-,No,-,$0,"$111,424","$46,968",$0,,$0,-,"$46,968",Open,-,Edit/Delete
+S00443733,AWA,Elaine Michael,CL00045,Elaine Michael,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00450541,AWA,Meridian Freight,CL00044,Meridian Freight,No,-,No,-,$0,"$112,524","$1,440",$0,,$0,-,"$1,440",Open,-,Edit/Delete
+S00458590,AWA,ITM,CL00004,ITM,No,-,No,-,$0,"$20,125",$150,$150,,$0,-,$0,Open,-,Edit/Delete
+S00453791,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00459542,AWA,Dieterle & Victory,CL00041,Dieterle & Victory,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463529,AWA,Translove Global,CL00043,Translove Global,No,-,No,-,$0,"$20,125","$1,149",$0,,$0,-,$0,Open,-,Edit/Delete
+S00452292,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00462758,AWA,Balletx,CL00042,Balletx,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463866,AWA,Dieterle & Victory,CL00041,Dieterle & Victory,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00460165,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00457652,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00460827,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00460559,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00461131,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00461017,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00462820,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463820,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463859,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464333,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00449410,AWA,Live C/O,CL00040,Live C/O,No,-,No,-,$0,"$120,924",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00457412,AWA,Savino Del Bene,CL00039,Savino Del Bene,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+T00007034,AWA,Tech Cargo,CL00038,Tech Cargo,No,-,No,-,$0,"$121,024","$282,041",$0,,$0,-,"$282,041",Open,-,Edit/Delete
+S00408704,AWA,DHL AU,CL00037,DHL AU,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464776,AWA,IDS International,CL00029,IDS International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463088,AWA,Intergroup,CL00036,Intergroup,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00467605,AWA,Passport shipping,CL00035,Passport shipping,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463752,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00461910,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00452372,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464799,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00445555,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00449066,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464239,AWA,Rhenus Logistics,CL00034,Rhenus Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00449576,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00460020,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00468696,AWA,VDM Cargo,CL00033,VDM Cargo,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00436393,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464600,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464139,AWA,ITM,CL00004,ITM,No,-,No,-,$0,"$30,125","$9,559",$0,,$0,-,$0,Open,-,Edit/Delete
+S00464363,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00464305,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00457409,AWA,Asean Cargo,CL00016,Asean Cargo,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00470516,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00459810,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00459747,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00468335,AWA,Cargo connect,CL00032,Cargo connect,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00461046,AWA,Craft Multimodal,CL00031,Craft Multimodal,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00407038,AWA,Elto Freight,CL00030,Elto Freight,No,-,No,-,$0,"$12,925","$13,127",$0,,$0,-,"$13,127",Open,-,Edit/Delete
+S00454558,AWA,IDS International,CL00029,IDS International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00446674,AWA,MVL Group,CL00023,MVL Group,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00473096,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00465009,AWA,Powerhouse logistics,CL00028,Powerhouse logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00470985,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00455833,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00469669,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00475539,AWA,AIT Worldwide log,CL00027,AIT Worldwide log,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00469471,AWA,Mega freight,CL00026,Mega freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00477426,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00389763,AWA,Gexpro,CL00025,Gexpro,No,-,No,-,$0,"$31,025","$51,354","$51,354",,$0,-,$0,Open,-,Edit/Delete
+S00467920,AWA,J.J. Lawson,CL00024,J.J. Lawson,No,-,No,-,$0,"$21,325","$2,030",$0,,$0,-,"$2,030",Open,-,Edit/Delete
+S00468226,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00468654,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00475565,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00474453,AWA,A Hartrodt,CL00022,A Hartrodt,No,-,No,-,$0,"$22,525","$1,430",$0,,$0,-,"$1,430",Open,-,Edit/Delete
+S00474316,AWA,MVL Group,CL00023,MVL Group,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463978,AWA,Sparks Global,CL00021,Sparks Global,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00478737,AWA,Rim Logistics,CL00020,Rim Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00477238,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+s00463132,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00477430,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00481944,AWA,Shipyard,CL00019,Shipyard,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00473466,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00478485,AWA,Mondiale,CL00018,Mondiale,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00480302,AWA,Ical Int,CL00017,Ical Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00455474,AWA,Asean Cargo,CL00016,Asean Cargo,No,-,No,-,$0,"$30,825",$355,$163,,$0,-,$192,Open,-,Edit/Delete
+S00473658,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00463345,AWA,XLI Global,CL00015,XLI Global,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00474999,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00467043,AWA,Ace Global,CL00014,Ace Global,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00472036,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00474701,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00480149,AWA,Worldwide Logistics,CL00013,Worldwide Logistics,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00482730,AWA,D&A Cargo Forwarding,CL00012,D&A Cargo Forwarding,No,-,No,-,$0,"$31,425",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00429646,AWA,Leo Global,CL00011,Leo Global,No,-,No,-,$0,"$61,924","$1,265",$0,,$0,-,$0,Open,-,Edit/Delete
+S00483086,AWA,Gibson Freight,CL00010,Gibson Freight,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00482033,AWA,TGI Cargo,CL00009,TGI Cargo,No,-,No,-,$0,"$32,725",$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00474466,AWA,Cyclone,CL00008,Cyclone,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00472884,AWA,Burnard Int,CL00007,Burnard Int,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00471517,AWA,Brian Peck,CL00006,Brian Peck,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00475594,AWA,TCF International,CL00005,TCF International,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00467056,AWA,ITM,CL00004,ITM,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00484204,AWA,Specific Freight,CL00003,Specific Freight,No,-,No,-,$0,"$40,125","$4,471",$0,,$0,-,"$4,002",Open,-,Edit/Delete
+S00482939,AWA,Strategic Sales & services,CL00002,Strategic Sales & services,No,-,No,-,$0,$0,$0,$0,,$0,-,$0,Open,-,Edit/Delete
+S00485393,AWA,ADM Global,CL00001,ADM Global,No,-,No,-,$0,"$41,025","$1,858",$0,,$0,-,"$1,858",Open,-,Edit/Delete
